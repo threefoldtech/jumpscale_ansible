@@ -120,6 +120,19 @@ author:
     - @m-motawea
 '''
 
+RETURN = r'''
+original_message:
+    description: The original name param that was passed in.
+    type: str
+    returned: always
+    sample: 'hello world'
+message:
+    description: The output message that the test module generates.
+    type: dict
+    returned: always
+    sample: '{'wid': 18116, 'message': ''}'
+'''
+
 def run_module():
     module_args = dict(
         identity_name=dict(type='str', required=False),
