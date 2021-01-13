@@ -11,6 +11,8 @@
         ip_address: 10.200.0.10
         interactive: true
         description: "test ansible"
+        env:
+          testkey: testval
       register: result
 
     - debug:

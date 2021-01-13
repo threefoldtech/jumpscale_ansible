@@ -3,7 +3,122 @@
 from ansible.module_utils.basic import AnsibleModule
 from jumpscale.loader import j
 
+DOCUMENTATION = r'''
+---
+module: container
 
+short_description: container module for zos
+
+version_added: "1.0.0"
+
+description: module to create containers for TF Grid.
+
+options:
+    identity_name:
+        description: identity name to be used to create/extend the pool defaults to j.core.identity.me
+        required: False
+        type: str
+    pool_id:
+        description: capacity pool id to deploy the container in
+        required: True
+        type: int
+    network_name:
+        description: name of the network to attach the container to
+        required: True
+        type: str
+    flist:
+        description: url of the flist to use for the container
+        required: True
+        type: str
+    node_id:
+        description: id of the node to deploy the container on
+        required: True
+        type: str
+    ip_address:
+        description: private ip address from the chosen network to be assigned to the container
+        required: True
+        type: str
+    env:
+        description: environment vars to be passed to the container (stored in the explorer as raw text)
+        required: False
+        type: dict
+        default: {}
+    cpu:
+        description: number of cpus to assign to the container
+        required: False
+        type: int
+        default: 1
+    memory:
+        description: size of the memory to assign to the container
+        required: False
+        type: int
+        default: 1024
+    disk:
+        description: size of the root filesystem to assign to the container
+        required: False
+        type: int
+        default: 256
+    entrypoint:
+        description: entrypoint of the container
+        required: False
+        type: str
+        default: ""
+    interactive:
+        description: whether to start the container as interactive (run corex) or not
+        required: False
+        type: bool
+        default: False
+    secret_env:
+        description: environment vars to be passed to the container (encrypted before request)
+        required: False
+        type: dict
+        default: {}
+    public_ipv6:
+        description: whether to assign a public ipv6 to the container or not
+        required: False
+        type: bool
+        default: False
+    storage_url:
+        description: storage url
+        required: False
+        type: str
+        default: "zdb://hub.grid.tf:9900"
+    description:
+        description: description of the workload
+        required: False
+        type: str
+        default: ""
+    metadata:
+        description: workload metadata
+        required: False
+        type: str
+        default: ""
+    log_channel_type:
+        description: type of the log channel to be used for the container
+        required: False
+        type: str
+    log_channel_host:
+        description: host ip to send container logs to
+        required: False
+        type: str
+    log_channel_port:
+        description: host port to send container logs to
+        required: False
+        type: str
+    log_channel_name:
+        description: name of the log channel to be used for the container
+        required: False
+        type: str
+    wait:
+        description: wait for workload to be successful before exit. defaults to True
+        required: False
+        type: bool
+        default: True
+    
+
+author:
+    - @m-motawea
+'''
 
 def run_module():
     module_args = dict(
