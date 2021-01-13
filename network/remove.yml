@@ -2,7 +2,7 @@
   hosts: localhost
   tasks:
     - name: Remove the network
-      jsgrid_network:
+      network:
         name: management
         state: removed
         pool_id: 34

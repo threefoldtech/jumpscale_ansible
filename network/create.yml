@@ -3,7 +3,7 @@
   hosts: localhost
   tasks:
     - name: Create the network
-      jsgrid_network:
+      network:
         name: management
         state: present
         pool_id: 34

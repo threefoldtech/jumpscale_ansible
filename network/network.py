@@ -5,7 +5,7 @@ __metaclass__ = type
 
 DOCUMENTATION = r'''
 ---
-module: jsgrid_network
+module: network
 
 short_description: A module to add and remove a network.
 
@@ -60,7 +60,7 @@ author:
 EXAMPLES = r'''
 # Pass in a message
 - name: Create a network
-  jsgrid_network:
+  network:
     name: management
     pool_id: 34
     ip_range: 10.200.0.0/16
@@ -69,7 +69,7 @@ EXAMPLES = r'''
     state: present
     identity_name: omar
 - name: Remove the created network
-  jsgrid_network:
+  network:
     name: management
     identity_name: omar
 '''
