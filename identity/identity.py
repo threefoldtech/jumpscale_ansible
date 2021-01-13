@@ -80,7 +80,6 @@ EXAMPLES = r'''
 # list identities
 - name: "Test list identities"
     identity:
-    instance_name: ansident
     state: list
 
 # delete identity
