@@ -117,7 +117,7 @@ def run_module():
             payment = zos.pools.get_payment_info(pool_info.reservation_id)
         if not all([payment.paid, payment.released]):
             result["changed"] = False
-            result["error"] = payment.message
+            result["error"] = payment.cause
 
     
     module.exit_json(**result)
