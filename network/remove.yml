@@ -1,0 +1,8 @@
+- name: Remove a network
+  hosts: localhost
+  tasks:
+    - name: Remove the network
+      jsgrid_network:
+        name: management
+        state: removed
+        pool_id: 34
