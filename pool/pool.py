@@ -55,7 +55,7 @@ options:
 
 
 author:
-    - Your Name (@m-motawea)
+    - @m-motawea
 '''
 
 

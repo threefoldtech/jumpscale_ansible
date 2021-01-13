@@ -15,4 +15,5 @@
       pool: 
         pool_id: "{{ result['message']['reservation_id'] }}"
         wallet_name: mainnet
-        sus: 1
+        sus: 100
+        cus: 50
