@@ -13,12 +13,6 @@ version_added: "1.0.0"
 
 description: A module to add and remove a network.
 
-        state=dict(type='str', required=True),
-        identity_name=dict(type='str', required=False),
-        pool_id=dict(type='int', required=False),
-        node_id=dict(type='str', required=False),
-        node_ip_range=dict(type='str', required=False),
-        ip_range=dict(type='str', required=False)
 options:
     name:
         description: The network name to be created.
