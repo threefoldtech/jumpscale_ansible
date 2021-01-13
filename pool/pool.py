@@ -11,11 +11,9 @@ module: Pool
 
 short_description: Pool module
 
-# If this is part of a collection, you need to use semantic versioning,
-# i.e. the version is of the form "2.5.0" and not "2.4".
 version_added: "1.0.0"
 
-description: This is my longer description explaining my test module.
+description: module to create and extend pools for the TF Grid.
 
 options:
     identity_name:
