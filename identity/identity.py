@@ -61,32 +61,32 @@ author:
 
 EXAMPLES = r'''
 # get identity (create if not exists)
-- name: "Test get identity"
+-   name: "Test get identity"
     identity:
-    instance_name: ansident
-    state: present
-    tname: ansident.3bot
-    email: ansident@incubaid.com
-    words: nuclear file soda sting load frame field hold virus metal tragic grain owner skirt journey onion spirit until immune theory lunar fever scrub pelica
-    explorer: devnet
+        instance_name: ansident
+        state: present
+        tname: ansident.3bot
+        email: ansident@incubaid.com
+        words: nuclear file soda sting load frame field hold virus metal tragic grain owner skirt journey onion spirit until immune theory lunar fever scrub pelica
+        explorer: devnet
 
 # set default identity
-- name: "Test set default identity"
+-   name: "Test set default identity"
     identity:
-    instance_name: ansident
-    state: present
-    set_default: yes
+        instance_name: ansident
+        state: present
+        set_default: yes
 
 # list identities
-- name: "Test list identities"
+-   name: "Test list identities"
     identity:
-    state: list
+        state: list
 
 # delete identity
-- name: "Test delete identity"
+-   name: "Test delete identity"
     identity:
-    instance_name: ansident
-    state: absent
+        instance_name: ansident
+        state: absent
 '''
 
 RETURN = r'''
