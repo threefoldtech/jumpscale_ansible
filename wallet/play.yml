@@ -1,0 +1,53 @@
+---
+- name: wallet module test
+  hosts: localhost
+  tasks:
+    - name: "Test get Wallet"
+      wallet:
+        name: "testmainnet"
+        state: "get"
+      register: result
+    
+    - debug:
+        msg: "{{ result['out'] }}"
+    
+    - name: "Test list all Wallet"
+      wallet:
+        state: "list_all"
+      register: result
+    
+    - debug:
+        msg: "{{ result['out'] }}"
+
+    - name: "Test delete Wallet"
+      wallet:
+        name: "test_mahmoud"
+        state: "delete"
+      ignore_errors: yes
+      register: result
+    
+    - debug:
+        msg: "{{ result['message'] }}"
+    
+    - name: "Test create Wallet"
+      wallet:
+        name: "new_one"
+        state: "new"
+      ignore_errors: yes
+      register: result
+    
+    - debug:
+        msg: "{{ result['out'] }}"
+      ignore_errors: yes
+
+    - name: "Test import Wallet"
+      wallet:
+        name: "new_one"
+        state: "new"
+        secret: "SDCDFP73LI527FZPT66LZHDWFRQZB7OVQYB7EZKDLAPVJQGJCKW7CEWM"
+      ignore_errors: yes
+      register: result
+    
+    - debug:
+        msg: "{{ result['out'] }}"
+      ignore_errors: yes
