@@ -7,13 +7,13 @@ from jumpscale.loader import j
 
 DOCUMENTATION = r'''
 ---
-module: volume
+module: public_ip
 
-short_description: volume module for zos
+short_description: public_ip module for zos
 
 version_added: "1.0.0"
 
-description: module to create volumes for TF Grid.
+description: module to reserve public_ips on TF Grid.
 
 options:
     identity_name:
@@ -21,23 +21,17 @@ options:
         required: False
         type: str
     pool_id:
-        description: capacity pool id to deploy the volume in
+        description: capacity pool id to deploy the public ip in
         required: True
         type: int
     node_id:
-        description: id of the node to deploy the volume on
+        description: id of the node to deploy the container on
         required: True
         type: str
-    size:
-        description: size of the volume in GB
+    ip_address:
+        description: the farm ip address to reserve
         required: True
-        type: int
-    type:
-        description: disk type for the volume
-        required: False
         type: str
-        choices: ssd, hdd
-        default: ssd
     description:
         description: description of the workload
         required: False
@@ -80,8 +74,7 @@ def run_module():
         identity_name=dict(type='str', required=False),
         pool_id=dict(type='int', required=True),
         node_id=dict(type='str', required=True),
-        size=dict(type='int', required=True),
-        type=dict(type='str', required=False, default='ssd', choices=['ssd', 'hdd']),
+        ip_address=dict(type='str', required=True),
         description=dict(type='str', required=False, default=""),
         metadata=dict(type='str', required=False, default=""),
         # wait for workload flag
@@ -100,15 +93,14 @@ def run_module():
     )
 
     zos = j.sals.zos.get(module.params['identity_name'])
-    vol = zos.volume.create(
+    ip = zos.public_ip.create(
         node_id=module.params['node_id'],
         pool_id=module.params['pool_id'],
-        size=module.params['size'],
-        type=module.params['type'].upper()
+        ipaddress=module.params['ip_address'],
     )
-    vol.info.description = module.params['description']
-    vol.info.description = module.params['metadata']
-    wid = zos.workloads.deploy(vol)
+    ip.info.description = module.params['description']
+    ip.info.description = module.params['metadata']
+    wid = zos.workloads.deploy(ip)
 
     result["changed"] = True
     result["message"] = {"wid": wid, "message": ""}
