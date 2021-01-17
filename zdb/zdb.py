@@ -76,16 +76,16 @@ author:
 
 EXAMPLES = r'''
 # create subdomain
-- name: "Test create subdomain"
-    subdomain:
+- name: "Test create zdb"
+    zdb:
         state: present
-        pool: 185
-        gateway: 9PdutHsdDSxcKUUyDg8ovS1KWh47qLT5R9h5uoFgRUH2
-        subdomain: asamir-subdomaintest-asamir.webg1test.grid.tf
+        pool: 229 
+        node: 26ZATmd3K1fjeQKQsi8Dr7bm9iSRa3ePsV8ubMcbZEuY
+        size: 2
+        mode: "SEQ"
+        password: ""
+        disk_type: "SSD"
         identity_name: asamir_test
-        description: "test domain"
-        metadata:
-          test: "test"
     register: result
 '''
 
@@ -152,7 +152,7 @@ def run_module():
     try:
         workload = zos.zdb.create(node, size, mode, password, pool, disk_type)
         wid = zos.workloads.deploy(workload)
-        result['message'] = zos.workloads.get(wid).to_dict()
+        result['message'] = zos.workloads.gets(wid).to_dict()
         result['changed'] = True
     except Exception as e:
         result['message'] = str(e)
