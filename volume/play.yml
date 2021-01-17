@@ -1,0 +1,13 @@
+---
+- name: Test js-sdk play
+  hosts: localhost
+  tasks:
+    - name: "test volume creation"
+      volume: 
+        pool_id: 3373
+        node_id: Gr8NxBLHe7yjSsnSTgTqGr7BHbyAUVPJqs8fnudEE4Sf
+        size: 1
+        type: hdd
+    
+    - debug:
+        msg: "result is: {{ result }}"

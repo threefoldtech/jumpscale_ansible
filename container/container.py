@@ -15,7 +15,7 @@ description: module to create containers for TF Grid.
 
 options:
     identity_name:
-        description: identity name to be used to create/extend the pool defaults to j.core.identity.me
+        description: identity name to be used to deploy the container defaults to j.core.identity.me
         required: False
         type: str
     pool_id:
@@ -117,7 +117,7 @@ options:
     
 
 author:
-    - @m-motawea
+    - Maged Motawea (@m-motawea)
 '''
 
 RETURN = r'''
@@ -125,12 +125,11 @@ original_message:
     description: The original name param that was passed in.
     type: str
     returned: always
-    sample: 'hello world'
 message:
     description: The output message that the test module generates.
     type: dict
     returned: always
-    sample: '{'wid': 18116, 'message': ''}'
+    sample: "{'wid': 18116, 'message': ''}"
 '''
 
 def run_module():

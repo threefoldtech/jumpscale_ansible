@@ -55,7 +55,7 @@ options:
 
 
 author:
-    - @m-motawea
+    - Maged Motawea (@m-motawea)
 '''
 
 
@@ -64,12 +64,11 @@ original_message:
     description: The original name param that was passed in.
     type: str
     returned: always
-    sample: 'hello world'
 message:
     description: The output message that the test module generates.
     type: dict
     returned: always
-    sample: '{'reservation_id': 3391, 'escrow_information': {'address': 'GCB5JCO44PB7GWXH6MWJMP6DNZKDSYQCSIWDFRP7O3R6B32CL4JNKZXK', 'asset': 'TFT:GBOVQKJYHXRR3DX6NOX2RRYFRCUMSADGDESTDNBDS6CDVLGVESRTAC47', 'amount': 0}}'
+    sample: "{'reservation_id': 3391, 'escrow_information': {'address': 'GCB5JCO44PB7GWXH6MWJMP6DNZKDSYQCSIWDFRP7O3R6B32CL4JNKZXK', 'asset': 'TFT:GBOVQKJYHXRR3DX6NOX2RRYFRCUMSADGDESTDNBDS6CDVLGVESRTAC47', 'amount': 0}}"
 '''
 
 
