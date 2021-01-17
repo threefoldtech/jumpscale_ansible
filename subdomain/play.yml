@@ -1,0 +1,18 @@
+---
+- name: Test js-sdk subdomain module
+  hosts: localhost
+  tasks:
+    - name: "Test create subdomain"
+      subdomain:
+        state: present
+        pool: 185
+        gateway: 9PdutHsdDSxcKUUyDg8ovS1KWh47qLT5R9h5uoFgRUH2
+        subdomain: asamir-subdomaintest-asamir.webg1test.grid.tf
+        identity_name: asamir_test
+        description: "test domain"
+        metadata:
+          test: "test"
+      register: result
+
+    - debug:
+        msg: "{{ result['message']}}"
