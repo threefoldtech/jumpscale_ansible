@@ -25,7 +25,7 @@ options:
         required: True
         type: int
     node_id:
-        description: id of the node to deploy the container on
+        description: id of the node to deploy the volume on
         required: True
         type: str
     size:
