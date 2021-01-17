@@ -38,6 +38,16 @@ options:
         type: str
         choices: ssd, hdd
         default: ssd
+    description:
+        description: description of the workload
+        required: False
+        type: str
+        default: ""
+    metadata:
+        description: workload metadata
+        required: False
+        type: str
+        default: ""
     wait:
         description: wait for workload to be successful before exit. defaults to True
         required: False
@@ -72,6 +82,8 @@ def run_module():
         node_id=dict(type='str', required=True),
         size=dict(type='int', required=True),
         type=dict(type='str', required=False, default='ssd', choices=['ssd', 'hdd']),
+        description=dict(type='str', required=False, default=""),
+        metadata=dict(type='str', required=False, default=""),
         # wait for workload flag
         wait=dict(type='bool', required=False, default=True),
     )
@@ -94,6 +106,8 @@ def run_module():
         size=module.params['size'],
         type=module.params['type'].upper()
     )
+    vol.info.description = module.params['description']
+    vol.info.description = module.params['metadata']
     wid = zos.workloads.deploy(vol)
 
     result["changed"] = True
