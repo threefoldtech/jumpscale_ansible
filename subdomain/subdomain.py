@@ -21,7 +21,7 @@ description: Subdomain module is responsible for creating subdomains on tf farms
 
 options:
     state:
-        description: state of the specified identity
+        description: state of the specified subdomain
         required: true
         type: str
         choices: present (to be extended)
@@ -129,10 +129,7 @@ def run_module():
         module.exit_json(**result)
 
     # main functionality of the module
-    if module.params['identity_name']:
-        identity_name = module.params['identity_name']
-    else:
-        identity_name = j.core.identity.me.instance_name
+    identity_name = module.params.get('identity_name', j.core.identity.me.instance_name)
     zos = j.sals.zos.get(identity_name)
 
     gateway_id = module.params['gateway']
@@ -150,8 +147,8 @@ def run_module():
             workload.info.metadata = str(metadata)
         if description:
             workload.info.description = description
-        wid = j.sals.zos.get(identity_name).workloads.deploy(workload)
-        result['message'] = f"Subdomain created successfully. Workload id: {wid}"
+        wid = zos.workloads.deploy(workload)
+        result['message'] = zos.workloads.get(wid).to_dict()
         result['changed'] = True
     except Exception as e:
         result['message'] = str(e)
