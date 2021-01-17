@@ -89,7 +89,6 @@ message:
 
 from ansible.module_utils.basic import AnsibleModule
 from jumpscale.loader import j
-from jumpscale.sals.reservation_chatflow import deployer
 
 def run_module():
     # define available arguments/parameters a user can pass to the module
@@ -148,7 +147,8 @@ def run_module():
     try:
         workload = zos.gateway.sub_domain(gateway_id, subdomain, addresses, pool_id)
         if metadata:
-            workload.info.metadata = deployer.encrypt_metadata(metadata, identity_name)
+            workload.info.metadata = str(metadata)
+        if description:
             workload.info.description = description
         wid = j.sals.zos.get(identity_name).workloads.deploy(workload)
         result['message'] = f"Subdomain created successfully. Workload id: {wid}"
