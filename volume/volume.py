@@ -100,7 +100,7 @@ def run_module():
     )
 
     zos = j.sals.zos.get(module.params['identity_name'])
-    vol = zos.create(
+    vol = zos.volume.create(
         node_id=module.params['node_id'],
         pool_id=module.params['pool_id'],
         size=module.params['size'],
