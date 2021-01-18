@@ -219,6 +219,8 @@ def run_module():
         success, msg = zos.workloads.wait(wid)
         result["changed"] = success
         result["message"]["message"] = msg
+        if not success:
+            module.fail_json(msg=msg, **result)
 
     module.exit_json(**result)
 
