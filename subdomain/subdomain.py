@@ -52,7 +52,7 @@ options:
     metadata:
         description: metadata of the subdomain workload
         required: false
-        type: dict
+        type: str
 
 # Specify this value according to your collection
 # in format of namespace.collection.doc_fragment_name
@@ -100,7 +100,7 @@ def run_module():
         addresses=dict(type='list', required=False),
         identity_name=dict(type='str', required=False),
         description=dict(type='str', required=False),
-        metadata=dict(type='dict', required=False)
+        metadata=dict(type='str', required=False)
     )
 
     # seed the result dict in the object

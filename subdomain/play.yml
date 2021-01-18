@@ -2,6 +2,17 @@
 - name: Test js-sdk subdomain module
   hosts: localhost
   tasks:
+    - name: "Encrypt metadata"
+      metadata:
+        state: encrypt
+        metadata:
+          test: "test"
+        identity_name: asamir_test
+      register: encrypted_metadata
+
+    - debug:
+        msg: "{{ encrypted_metadata['message']}}"
+
     - name: "Test create subdomain"
       subdomain:
         state: present
@@ -10,7 +21,7 @@
         subdomain: asamir-subdomaintest-asamir.webg1test.grid.tf
         identity_name: asamir_test
         description: "test domain"
-        metadata: "test"
+        metadata: "{{ encrypted_metadata['message'] }}"
       register: result
 
     - debug:
