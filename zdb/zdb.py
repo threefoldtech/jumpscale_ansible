@@ -75,8 +75,8 @@ author:
 '''
 
 EXAMPLES = r'''
-# create subdomain
-- name: "Test create zdb"
+# create ZDB
+- name: "Test create ZDB"
     zdb:
         state: present
         pool: 229 

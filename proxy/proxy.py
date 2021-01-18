@@ -65,7 +65,7 @@ author:
 '''
 
 EXAMPLES = r'''
-# create subdomain
+# create proxy
 - name: "Test create proxy"
     proxy:
         state: present

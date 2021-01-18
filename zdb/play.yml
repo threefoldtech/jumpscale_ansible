@@ -1,8 +1,8 @@
 ---
-- name: Test js-sdk zdb module
+- name: Test js-sdk ZDB module
   hosts: localhost
   tasks:
-    - name: "Test create zdb"
+    - name: "Test create ZDB"
       zdb:
         state: present
         pool: 229 
