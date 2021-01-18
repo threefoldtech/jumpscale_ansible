@@ -27,7 +27,7 @@ options:
         required: true
         type: str
     public_key:
-        description: 
+        description: wireguard public key
         required: true
         type: str
     identity_name:
