@@ -72,7 +72,7 @@ EXAMPLES = r'''
         pool: 185
         gateway: 9PdutHsdDSxcKUUyDg8ovS1KWh47qLT5R9h5uoFgRUH2
         domain: asamir-subdomaintest-asamir.webg1test.grid.tf
-        trc_secret: 12345678
+        trc_secret: "12345678"
         identity_name: asamir_test
         description: "test domain"
         metadata:
