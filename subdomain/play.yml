@@ -10,8 +10,7 @@
         subdomain: asamir-subdomaintest-asamir.webg1test.grid.tf
         identity_name: asamir_test
         description: "test domain"
-        metadata:
-          test: "test"
+        metadata: "test"
       register: result
 
     - debug:
