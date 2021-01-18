@@ -144,7 +144,7 @@ def run_module():
     try:
         workload = zos.gateway.tcp_proxy_reverse(gateway_id, domain, trc_secret, pool_id)
         if metadata:
-            workload.info.metadata = str(metadata)
+            workload.info.metadata = metadata
         if description:
             workload.info.description = description
         wid = zos.workloads.deploy(workload)

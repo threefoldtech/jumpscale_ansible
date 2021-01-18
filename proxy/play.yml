@@ -11,8 +11,7 @@
         trc_secret: "12345678"
         identity_name: asamir_test
         description: "test domain"
-        metadata:
-          test: "test"
+        metadata: "test"
       register: result
 
     - debug:
