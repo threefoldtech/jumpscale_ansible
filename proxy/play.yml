@@ -23,4 +23,4 @@
       register: result
 
     - debug:
-        msg: "{{ result['message']}}"
+        msg: "{{ result }}"

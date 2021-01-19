@@ -63,15 +63,14 @@ author:
 
 
 RETURN = r'''
-original_message:
-    description: The original name param that was passed in.
-    type: str
+wid:
+    description: id of the deployed workload.
+    type: int
     returned: always
 message:
-    description: The output message that the test module generates.
-    type: dict
+    description: message returned in the workload result in case of failures.
+    type: str
     returned: always
-    sample: "{'wid': 18116, 'message': ''}"
 '''
 
 
@@ -90,10 +89,9 @@ def run_module():
 
     result = dict(
         changed=False,
-        original_message='',
-        message=''
+        message=None,
+        wid=None,
     )
-
     module = AnsibleModule(
         argument_spec=module_args,
         supports_check_mode=True
@@ -111,12 +109,12 @@ def run_module():
     wid = zos.workloads.deploy(vol)
 
     result["changed"] = True
-    result["message"] = {"wid": wid, "message": ""}
+    result.update({"wid": wid, "message": ""})
 
     if module.params["wait"]:
         success, msg = zos.workloads.wait(wid)
         result["changed"] = success
-        result["message"]["message"] = msg
+        result["message"] = msg
         if not success:
             module.fail_json(msg=msg, **result)
 
