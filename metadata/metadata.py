@@ -15,7 +15,7 @@ description: Metadata module is responsible for managing workloads metadata e.g.
 
 options:
     state:
-        description: state of the specified proxy
+        description: state of the specified data
         required: true
         type: str
         choices: encrypt, decrypt
