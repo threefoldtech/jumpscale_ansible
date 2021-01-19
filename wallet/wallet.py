@@ -123,7 +123,6 @@ def run_module():
             ('state', 'new', ('name',)),
             ('state', 'delete', ('name',)),
         ],
-        supports_check_mode=True
     )
 
     name = module.params["name"]

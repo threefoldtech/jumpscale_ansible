@@ -41,3 +41,11 @@
 
     - debug:
         msg: "fact is: {{ ansible_facts['ip_address'] }}"
+
+    - name: "get free public ips on a farm"
+      ip_management: 
+        operation: get_public_ips
+        farm_name: freefarm
+
+    - debug:
+        msg: "fact is: {{ ansible_facts['public_ips'] }}"

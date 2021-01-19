@@ -96,11 +96,7 @@ def run_module():
             ('state', 'encrypt', ('metadata',),),
             ('state', 'decrypt', ('encrypted_metadata',),)
         ],
-        supports_check_mode=True
     )
-    
-    if module.check_mode:
-        module.exit_json(**result)
 
     identity_name = module.params.get('identity_name', j.core.identity.me.instance_name)
     if module.params['state'] == 'encrypt':
