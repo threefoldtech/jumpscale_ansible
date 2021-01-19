@@ -1,0 +1,14 @@
+---
+- name: Add access node to the network
+  hosts: localhost
+  tasks:
+    - name: Add access
+      network_node:
+        name: management
+        nodes: 
+          EECgb24XqKaX5Y6EJJxLczxj9nzCqbq8FKgDwusp9R2A: 10.200.4.0/24
+        type: access
+      register: result
+
+    - debug:
+        msg: "{{ result['wg_config']}}"

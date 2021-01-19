@@ -1,0 +1,9 @@
+---
+- name: Create a network
+  hosts: localhost
+  tasks:
+    - name: Create the network
+      network:
+        name: management
+        state: present
+        pool_id: 34

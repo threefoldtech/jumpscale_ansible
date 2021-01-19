@@ -1,0 +1,12 @@
+---
+- name: Delete a node from a network
+  hosts: localhost
+  tasks:
+    - name: Delete a node from a network
+      network_node:
+        name: management
+        nodes: 
+          FED1ZsfbUz3jcJzzqJWyGaoGC61bdN8coKJNte96Fo7k:
+          EECgb24XqKaX5Y6EJJxLczxj9nzCqbq8FKgDwusp9R2A:
+        state: absent
+
