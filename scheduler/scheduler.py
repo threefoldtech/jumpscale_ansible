@@ -121,6 +121,7 @@ def run_module():
         query_name=dict(type='str', required=False, default="selected_nodes"),
         excluded_nodes=dict(type='list', required=False, default=[]),
         randomize=dict(type='bool', required=False, default=True),
+        gateway=dict(type='bool', required=False, default=False),
     )
 
     result = dict(
@@ -135,24 +136,40 @@ def run_module():
     zos = j.sals.zos.get(module.params['identity_name'])
 
     filters = [zos.nodes_finder.filter_is_up, lambda node: node.node_id not in module.params["excluded_nodes"]]
-    if module.params["ip_version"] == "ipv4":
-        filters.append(zos.nodes_finder.filter_public_ip4)
-    elif module.params["ip_version"] == "ipv6":
-        filters.append(zos.nodes_finder.filter_public_ip6)
-    if module.params["public_ip"]:
-        filters.append(zos.nodes_finder.filter_public_ip_bridge)
+    if not module.params["gateway"]:
+        if module.params["ip_version"] == "ipv4":
+            filters.append(zos.nodes_finder.filter_public_ip4)
+        elif module.params["ip_version"] == "ipv6":
+            filters.append(zos.nodes_finder.filter_public_ip6)
+        if module.params["public_ip"]:
+            filters.append(zos.nodes_finder.filter_public_ip_bridge)
 
-    nodes = zos.nodes_finder.nodes_by_capacity(
-        farm_id=module.params["farm_id"],
-        farm_name=module.params["farm_name"],
-        country=module.params["country"],
-        city=module.params["city"],
-        cru=module.params["cru"],
-        mru=module.params["mru"],
-        sru=module.params["sru"],
-        hru=module.params["hru"],
-        pool_id=module.params["pool_id"],
-    )
+        nodes = zos.nodes_finder.nodes_by_capacity(
+            farm_id=module.params["farm_id"],
+            farm_name=module.params["farm_name"],
+            country=module.params["country"],
+            city=module.params["city"],
+            cru=module.params["cru"],
+            mru=module.params["mru"],
+            sru=module.params["sru"],
+            hru=module.params["hru"],
+            pool_id=module.params["pool_id"],
+        )
+    else:
+        nodes = zos.gateways_finder.gateways_search(
+            country=module.params["country"],
+            city=module.params["city"],
+        )
+        if module.params["pool_id"]:
+            pool = zos.pools.get(module.params["pool_id"])
+            filters.append(
+                lambda node: node.node_id in pool.node_ids
+            )
+        farm_id = module.params["farm_id"]
+        if not farm_id and module.params["farm_name"]:
+            farm_id = zos._explorer.farms.get(farm_name=module.params["farm_name"])
+        if farm_id:
+            filters.append(lambda node: node.farm_id == farm_id)
 
     nodes = list(filter(lambda node: all(f(node) for f in filters), nodes))
     if len(nodes) < module.params["no_nodes"]:
