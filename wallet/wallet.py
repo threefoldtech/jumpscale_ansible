@@ -1,9 +1,6 @@
 #!/usr/bin/python
 
 
-from __future__ import absolute_import, division, print_function
-__metaclass__ = type
-
 
 DOCUMENTATION = r'''
 ---
@@ -70,7 +67,6 @@ EXAMPLES= r'''
 '''
 
 RETURN = r'''
-# These are examples of possible return values, and in general should use other names for return values.
 message:
     description: The output message that the test module generates.
     type: str
