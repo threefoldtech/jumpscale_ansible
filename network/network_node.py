@@ -15,7 +15,7 @@ description: A module to add normal and access nodes to the network.
 
 options:
     name:
-        description: The network name.
+        description: The network name. Created if it doesn't exist.
         required: true
         type: str
     type:
@@ -32,14 +32,13 @@ options:
         description: The pool id to create the network on.
         required: true
         type: int
-    node_id:
-        description: The node to add to the network.
+    nodes:
+        description: A mapping from node ids to ip ranges (range can be anything when adding access). Its length must be one when adding access
         required: true
-        type: str
-    ip_range:
-        description: The ip range to be reserved for the node.
+        type: dict
+    ipv4:
+        description: The ip version when adding access. Detected automatically when ommited.
         required: false
-        default: A free 24 subnet of ip_range.
         type: str
 
 author:
@@ -52,10 +51,11 @@ EXAMPLES = r'''
   network_node:
     name: management
     pool_id: 34
-    node_id: 26ZATmd3K1fjeQKQsi8Dr7bm9iSRa3ePsV8ubMcbZEuY
-    ip_range: 10.200.1.0/24
+    nodes:
+        26ZATmd3K1fjeQKQsi8Dr7bm9iSRa3ePsV8ubMcbZEuY: 10.100.2.0/24
     identity_name: omar
     type: access
+    state: present
 '''
 
 RETURN = r'''
