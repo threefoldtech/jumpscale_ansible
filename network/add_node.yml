@@ -1,0 +1,12 @@
+---
+- name: Add a node to network (create if not exists)
+  hosts: localhost
+  tasks:
+    - name: Add node
+      network_node:
+        name: management
+        nodes: 
+          FED1ZsfbUz3jcJzzqJWyGaoGC61bdN8coKJNte96Fo7k: 10.200.4.0/24
+        pool_id: 34
+        type: normal
+

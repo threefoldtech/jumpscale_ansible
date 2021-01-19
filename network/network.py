@@ -176,8 +176,6 @@ def run_module():
             result['changed'] = remove_network(identity_name, name)
     except Exception as e:
         module.fail_json(msg=traceback.format_exc(), **result)
-
-
     module.exit_json(**result)
 
 
