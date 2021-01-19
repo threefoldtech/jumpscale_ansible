@@ -1,0 +1,13 @@
+namespace: "threefold"
+name: "jsgrid"
+version: "0.1.0"
+readme: "README.md"
+authors:
+    - "Ahmed Samir"
+    - "Omar Elawady"
+    - "Mahmoud Ayoub"
+    - "Maged Motawea"
+tags:
+    - cloud
+    - collection
+repository: "https://github.com/threefoldtech/js-ansible-modules"
