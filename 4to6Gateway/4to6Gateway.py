@@ -109,11 +109,8 @@ def run_module():
    
     module = AnsibleModule(
         argument_spec=module_args,
-        supports_check_mode=True
     )
     
-    if module.check_mode:
-        module.exit_json(**result)
 
     if module.params['identity_name']:
         identity_name = module.params['identity_name']

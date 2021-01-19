@@ -170,7 +170,6 @@ def run_module():
 
     module = AnsibleModule(
         argument_spec=module_args,
-        supports_check_mode=True
     )
 
     zos = j.sals.zos.get(module.params['identity_name'])
