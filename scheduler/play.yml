@@ -13,6 +13,15 @@
     - debug:
         msg: "fact is: {{ ansible_facts['my_nodes'] }}"
 
+    - name: "gateway selection"
+      scheduler: 
+        gateway: true
+        query_name: "my_gateways"
+      register: result
+
+    - debug:
+        msg: "fact is: {{ ansible_facts['my_gateways'] }}"
+
     - name: "optimistic node selection"
       scheduler: 
         pool_id: 226
