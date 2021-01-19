@@ -1,8 +1,0 @@
-- name: Remove a network
-  hosts: localhost
-  tasks:
-    - name: Remove the network
-      network:
-        name: management
-        state: removed
-        pool_id: 34
