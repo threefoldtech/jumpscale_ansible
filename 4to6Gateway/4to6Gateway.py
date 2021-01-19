@@ -1,9 +1,5 @@
 #!/usr/bin/python
 
-# Copyright: (c) 2018, Terry Jones <terry.jones@example.org>
-# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
-from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
 
 DOCUMENTATION = r'''
 ---
@@ -44,13 +40,17 @@ options:
         required: False
         type: str
         default: ""
+    wait:
+        description: wait for workload to be successful before exit. defaults to True
+        required: False
+        type: bool
+        default: True
 
 author:
     - Mahmoud Ayoub (@dmahmouali)
 '''
 
 EXAMPLES = r'''
-# create 4to6Gateway
 ---
 - name: Test js-sdk 4to6Gateway module
   hosts: localhost
@@ -70,12 +70,17 @@ EXAMPLES = r'''
 '''
 
 RETURN = r'''
-# These are examples of possible return values, and in general should use other names for return values.
-message:
-    description: The output message that the test module generates.
-    type: dict
+wid:
+    description: id of the deployed workload.
+    type: int
     returned: always
-    sample: 'OK'
+message:
+    description: message returned in the workload result in case of failures.
+    type: str
+    returned: always
+wgconf:
+    description: path to the generate wireguard configuration file.
+    type: str
 '''
 from textwrap import dedent
 
@@ -83,7 +88,6 @@ from ansible.module_utils.basic import AnsibleModule
 from jumpscale.loader import j
 
 def run_module():
-    # define available arguments/parameters a user can pass to the module
     module_args = dict(
         pool=dict(type='int', required=True),
         gateway=dict(type='str', required=True),
@@ -91,12 +95,15 @@ def run_module():
         identity_name=dict(type='str', required=False),
         description=dict(type='str', required=False, default=""),
         metadata=dict(type='str', required=False, default=""),
+        # wait for workload flag
+        wait=dict(type='bool', required=False, default=True),
     )
 
    
     result = dict(
         changed=False,
-        message={}
+        message=None,
+        wid=None,
     )
 
    
@@ -105,13 +112,9 @@ def run_module():
         supports_check_mode=True
     )
     
-    # if the user is working with this module in only check mode we do not
-    # want to make any changes to the environment, just return the current
-    # state with no modifications
     if module.check_mode:
         module.exit_json(**result)
 
-    # main functionality of the module
     if module.params['identity_name']:
         identity_name = module.params['identity_name']
     else:
@@ -131,12 +134,16 @@ def run_module():
     if description:
         workload.info.description = description
     wid = zos.workloads.deploy(workload)
-    success, msg = zos.workloads.wait(wid)
-    result["changed"] = success
-    result["message"]["message"] = msg
 
-    if not success:
-        module.fail_json(msg=msg, **result)
+    result["changed"] = True
+    result.update({"wid": wid, "message": ""})
+
+    if module.params["wait"]:
+        success, msg = zos.workloads.wait(wid)
+        result["changed"] = success
+        result["message"] = msg
+        if not success:
+            module.fail_json(msg=msg, **result)
 
     reservation_result = zos.workloads.get(wid).info.result
     cfg = j.data.serializers.json.loads(reservation_result.data_json)
@@ -159,12 +166,9 @@ def run_module():
     )
     j.sals.fs.touch(wgconfig_path)
     j.sals.fs.write_file(wgconfig_path, wgconfig_data)
-    result['message']["wgconf"] = wgconfig_path
-    result['message']["workload"] = zos.workloads.get(wid).to_dict()
-    result['changed'] = True
+    result["wgconf"] = wgconfig_path
 
-    # in the event of a successful module execution, you will want to
-    # simple AnsibleModule.exit_json(), passing the key/value results
+
     module.exit_json(**result)
 
 def main():
