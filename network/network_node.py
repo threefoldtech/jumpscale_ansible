@@ -7,11 +7,11 @@ DOCUMENTATION = r'''
 ---
 module: network
 
-short_description: A module to add normal and access nodes to the network.
+short_description: A module to add/remove normal and access nodes to the network.
 
 version_added: "1.0.0"
 
-description: A module to add normal and access nodes to the network.
+description: A module to add/remove normal and access nodes to the network.
 
 options:
     name:
@@ -60,6 +60,7 @@ EXAMPLES = r'''
 
 RETURN = r'''
 changed: False
+wg_config: "config" # in case of adding access
 '''
 from jumpscale.loader import j
 from jumpscale.clients.explorer.models import NextAction
