@@ -6,6 +6,9 @@
       network_node:
         name: management
         nodes: 
-          FED1ZsfbUz3jcJzzqJWyGaoGC61bdN8coKJNte96Fo7k: 10.200.4.0/24
+          EECgb24XqKaX5Y6EJJxLczxj9nzCqbq8FKgDwusp9R2A: 10.200.4.0/24
         type: access
+      register: result
 
+    - debug:
+        msg: "{{ result['wg_config']}}"

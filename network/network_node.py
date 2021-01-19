@@ -127,9 +127,13 @@ def add_network_nodes(network_name, nodes, identity_name, pool_id):
     update_network(zos, network)
     return changed
 
+def is_node_ipv4(node_id):
+    zos = j.sals.zos.get()
+    return zos.nodes_finder.filter_public_ip4(zos._explorer.nodes.get(node_id))
+
 def add_network_access(network_name, nodes, identity_name, ipv4):
     node_id, ip_range = list(nodes.items())[0]
-    ipv4 = ipv4 or True
+    ipv4 = ipv4 or is_node_ipv4(node_id)
     zos = j.sals.zos.get(identity_name)
     network = zos.network.load_network(network_name)
     if not network:
@@ -138,7 +142,7 @@ def add_network_access(network_name, nodes, identity_name, ipv4):
         raise Exception("You have to add the node to the network before adding it as an access node.")
     if network is None:
         raise Exception(f"The network {network_name} doesn't exist")
-    wg_config = zos.network.add_access(network, node_id, ip_range, ipv4=True)
+    wg_config = zos.network.add_access(network, node_id, ip_range, ipv4=ipv4)
     update_network(zos, network)
     return wg_config
 
@@ -178,7 +182,7 @@ def run_module():
         pool_id=dict(type='int', required=False),
         type=dict(type='str', default='normal'),
         state=dict(type='str', default='present'),
-        ipv4=dict(type="bool", default=True),
+        ipv4=dict(type="bool", required=False),
         identity_name=dict(type='str', required=False),
     )
 
