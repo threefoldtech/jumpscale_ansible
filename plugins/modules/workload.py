@@ -42,6 +42,11 @@ options:
         description: filters the listed workloads by the types specified
         required: False
         type: list
+    match: 
+        description: key/value pairs to filter by
+        required: False
+        type: str
+        choices: [present, deleted]
 
 author:
     - Maged Motawea (@m-motawea)
@@ -68,6 +73,18 @@ ansible_facts:
 '''
 
 
+def filter_workload(workload, filters):
+    for key, val in filters.items():
+        split_keys = key.split(".")
+        attr = workload
+        for key in split_keys:
+            if not hasattr(attr, key):
+                return False
+            attr = getattr(attr, key)
+        if attr != val:
+            return False
+    return True
+
 
 def run_module():
     next_action_choices = [a.name.lower() for a in NextAction]
@@ -78,13 +95,15 @@ def run_module():
         next_action=dict(type='str', required=False, default=None, choices=next_action_choices),
         owner_tid=dict(type='int', required=False),
         state=dict(type='str', required=False, choices=["present", "deleted"]),
-        types=dict(type='list', required=False, default=[], choices=type_choices)
+        types=dict(type='list', required=False, default=[], choices=type_choices),
+        match=dict(type='dict', required=False, default={}),
     )
 
     result = dict(
         changed=False,
         original_message='',
-        message=''
+        message='',
+        types=type_choices,
     )
 
     module = AnsibleModule(
@@ -102,13 +121,20 @@ def run_module():
             workload_types = []
             if module.params["types"]:
                 for workload_type in module.params["types"]:
-                    workload_types.append(workload_type.capitalize())
+                    workload_types.append(workload_type.lower())
+                result["types"] = workload_types
             else:
                 workload_types = type_choices
             owner_tid = module.params["owner_tid"] or identity.tid
             next_action = module.params["next_action"].upper() if module.params["next_action"] else None
             workloads = zos.workloads.list(owner_tid, next_action)
-            result["ansible_facts"] = {"workloads": [w.to_dict() for w in workloads if w.info.workload_type in workload_types]}
+            filtered_workloads = []
+            for workload in workloads:
+                if not filter_workload(workload, module.params["match"]):
+                    continue
+                filtered_workloads.append(workload)
+            filtered_workloads = [w for w in filtered_workloads if w.info.workload_type.name.lower() in workload_types]
+            result["ansible_facts"] = {"workloads": [w.to_dict() for w in filtered_workloads]}
     else:
         # apply state
         w = zos.workloads.get(module.params["wid"])
