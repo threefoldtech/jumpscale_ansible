@@ -1,0 +1,13 @@
+---
+- name: get free range
+  ip_management:
+    network_name: "{{ network_name }}"
+    operation: get_free_range
+    fact_name: range_1
+  
+- name: add node to network
+  network_node:
+    name: "{{ network_name }}"
+    nodes: "{{ { node_id: ansible_facts['range_1'] } }}"
+    pool_id: "{{ pool_id }}"
+    type: normal
