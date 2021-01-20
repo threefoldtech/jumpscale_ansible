@@ -22,7 +22,7 @@
     pool_id: "{{ pool_id }}"
     type: normal
 
-- name: "get free ip address on the node"
+- name: get free ip address on the node
   threefold.jsgrid.ip_management: 
     network_name: "{{ network_name }}"
     operation: get_ip
@@ -32,14 +32,14 @@
 - debug:
     msg: "Selected free ip: {{ ansible_facts['ip_address'] }}"
 
-- name: "Encrypt metadata"
+- name: Encrypt metadata
   threefold.jsgrid.metadata:
     state: encrypt
     metadata: "{{ metadata }}"
     identity_name: asamir_test
   register: encrypted_metadata
 
-- name: "create container"
+- name: create container
   threefold.jsgrid.container: 
     pool_id: "{{ pool_id }}"
     network_name: "{{ network_name }}"
