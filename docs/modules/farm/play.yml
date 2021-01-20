@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  tasks:
+    - name: fetch farm
+      farm: 
+        farm_id: 1
+    
+    - name: debug farm
+      debug:
+        msg: "{{ ansible_facts['farm'] }}"
+
