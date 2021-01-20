@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  vars:
+    network_name: testnet
+    node_id: 8zPYak76CXcoZxRoJBjdU69kVjo7XYU1SFE2NEK4UMqn
+    pool_id: 149
+  roles:
+    - network
+
