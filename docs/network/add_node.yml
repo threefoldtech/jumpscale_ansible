@@ -1,0 +1,13 @@
+---
+- name: Add a node to network (create if not exists)
+  hosts: localhost
+  tasks:
+    - name: Add node
+      threefold.jsgrid.network_node:
+        name: management
+        nodes: 
+          FED1ZsfbUz3jcJzzqJWyGaoGC61bdN8coKJNte96Fo7k: 10.200.4.0/24
+          EECgb24XqKaX5Y6EJJxLczxj9nzCqbq8FKgDwusp9R2A: 10.200.5.0/24
+        pool_id: 34
+        type: normal
+

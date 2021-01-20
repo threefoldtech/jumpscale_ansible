@@ -1,0 +1,33 @@
+---
+- name: Test js-sdk play
+  hosts: localhost
+  tasks:
+    - name: "realistic node selection"
+      threefold.jsgrid.scheduler: 
+        pool_id: 226
+        ip_version: ipv6
+        query_name: "my_nodes"
+        no_nodes: 3
+      register: result
+
+    - debug:
+        msg: "fact is: {{ ansible_facts['my_nodes'] }}"
+
+    - name: "gateway selection"
+      threefold.jsgrid.scheduler: 
+        gateway: true
+        query_name: "my_gateways"
+      register: result
+
+    - debug:
+        msg: "fact is: {{ ansible_facts['my_gateways'] }}"
+
+    - name: "optimistic node selection"
+      threefold.jsgrid.scheduler: 
+        pool_id: 226
+        ip_version: ipv4
+        no_nodes: 3
+      register: result
+
+    - debug:
+        msg: "fact is: {{ ansible_facts['selected_nodes'] }}"
