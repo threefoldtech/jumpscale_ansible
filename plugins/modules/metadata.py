@@ -107,7 +107,6 @@ def run_module():
             box = Box(sk, pk)
             encrypted_metadata = base64.b85encode(box.encrypt(metadata.encode())).decode()
             result['message'] = encrypted_metadata
-            result['changed'] = True
         except Exception as e:
             result['message'] = str(e)
             module.fail_json(msg='Failed to encrypt metadata', **result)
@@ -119,7 +118,6 @@ def run_module():
             box = Box(sk, pk)
             decrypted_metadata = box.decrypt(base64.b85decode(module.params['encrypted_metadata'].encode())).decode()
             result['message'] = decrypted_metadata
-            result['changed'] = True
         except Exception as e:
             result['message'] = str(e)
             module.fail_json(msg='Failed to decrypt metadata', **result)
