@@ -84,7 +84,7 @@
       PUBKEY: "{{ public_key }}"
       TEST_CERT: "true"
     metadata: "{{ metadata_encrypted['message'] }}"
-    when: type == 'nginx'
+  when: type == 'nginx'
 
 - name: Deploy trc container
   container:
@@ -96,8 +96,10 @@
     ip_address: "{{ ansible_facts['ip_address'] }}"
     env:
       SOLUTION_IP: "{{ solution_ip }}"
-      HTTP_PORT: "{{ solution_port }}"
-      HTTPS_PORT: "{{ tls_port }}"
+      HTTP_PORT: "{{ solution_port|string }}"
+      HTTPS_PORT: "{{ tls_port|string }}"
       REMOTE_IP: "{{ ansible_facts[gateway_id]['dns_nameserver'][0] }}"
-      REMOTE_PORT: "{{ ansible_facts[gateway_id]['tcp_router_port'] }}"
+      REMOTE_PORT: "{{ ansible_facts[gateway_id]['tcp_router_port']|string }}"
+    secret_env:
+      TRC_SECRET: "{{ trc_secret }}"
   when: type == 'trc'
