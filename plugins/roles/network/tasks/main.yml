@@ -1,9 +1,28 @@
 ---
+- name: create network if an ip range is specified
+  network_node:
+    name: "{{ network_name }}"
+    nodes: "{{ { node_id: ip_range } }}"
+    pool_id: "{{ pool_id }}"
+    type: normal
+  when: ip_range is defined
+  register: result
+
+- debug: 
+    msg: "{{ result }}"
+  when: ip_range is defined
+
 - name: get free range
   ip_management:
     network_name: "{{ network_name }}"
     operation: get_free_range
     fact_name: range_1
+  when: ip_range is not defined
+  register: result
+
+- debug: 
+    msg: "{{ result }}"
+  when: ip_range is not defined
   
 - name: add node to network
   network_node:
@@ -11,3 +30,9 @@
     nodes: "{{ { node_id: ansible_facts['range_1'] } }}"
     pool_id: "{{ pool_id }}"
     type: normal
+  when: ip_range is not defined
+  register: result
+
+- debug: 
+    msg: "{{ result }}"
+  when: ip_range is not defined
