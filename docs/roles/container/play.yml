@@ -3,7 +3,6 @@
   vars:
     - pool_id: 229
     - network_name: newnet
-    - node_id: 8zPYak76CXcoZxRoJBjdU69kVjo7XYU1SFE2NEK4UMqn
     - metadata:
       test: "test"
   roles:
