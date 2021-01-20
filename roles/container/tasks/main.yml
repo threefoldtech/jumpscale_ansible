@@ -9,7 +9,7 @@
 - debug:
     msg: "Selected node: {{ ansible_facts['my_node'][0] }}"
 
-- name: "get free range to update network"
+- name: get free range to update network
   ip_management: 
     network_name: "{{ network_name }}"
     operation: get_free_range
@@ -32,7 +32,7 @@
 - debug:
     msg: "Selected free ip: {{ ansible_facts['ip_address'] }}"
 
-- name: Encrypt metadata
+- name: encrypt metadata
   threefold.jsgrid.metadata:
     state: encrypt
     metadata: "{{ metadata }}"
