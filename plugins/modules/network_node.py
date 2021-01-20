@@ -81,7 +81,7 @@ def wait_until_deployed(zos, wid, expiration=3):
             else:
                 error_message = workload.info.result.message
                 raise Exception(f"Failed to add node with workload id {wid} to the network due to the error: {error_message}")    
-    raise Exception(f"Failed to add the node to the network in time. Workload id is {wid}")
+    raise TimeoutError(f"Failed to add the node to the network in time. Workload id is {wid}")
 
 def wait_until_decommissioned(zos, wid, expiration=3):
     start = time()
@@ -91,7 +91,7 @@ def wait_until_decommissioned(zos, wid, expiration=3):
         if workload.info.next_action == NextAction.DELETED or workload.info.next_action == NextAction.DELETE:
             return True
             
-    raise Exception(f"Failed to decmmission wid {wid}")
+    raise TimeoutError(f"Failed to decmmission wid {wid}")
 
 
 
@@ -106,7 +106,7 @@ def add_network_node(network_name, node_id, ip_range, identity_name, pool_id):
     if network is None:
         raise Exception(f"The network {network_name} doesn't exist")
     zos.network.add_node(network, node_id, ip_range, pool_id)
-    update_network(zos, network)
+    update_network(zos, network, [node_id])
     return True
 
 def get_network_range(subnet):
@@ -125,7 +125,7 @@ def add_network_nodes(network_name, nodes, identity_name, pool_id):
             continue
         changed = True
         zos.network.add_node(network, node_id, ip_range, pool_id)
-    update_network(zos, network)
+    update_network(zos, network, list(nodes.keys()))
     return changed
 
 def is_node_ipv4(node_id):
@@ -144,15 +144,21 @@ def add_network_access(network_name, nodes, identity_name, ipv4):
     if network is None:
         raise Exception(f"The network {network_name} doesn't exist")
     wg_config = zos.network.add_access(network, node_id, ip_range, ipv4=ipv4)
-    update_network(zos, network)
+    update_network(zos, network, list(nodes.keys()))
     return wg_config
 
-def update_network(zos, network):
+def update_network(zos, network, node_ids):
     wids = []
     for network_resource in network.network_resources:
         wids.append(zos.workloads.deploy(network_resource))
     for wid in wids:
-        wait_until_deployed(zos, wid)
+        workload = zos.workloads.get(wid)
+        timeout = 3 if workload.info.node_id in node_ids else 1
+        try:
+            wait_until_deployed(zos, wid, timeout)
+        except TimeoutError as e:
+            if workload.info.node_id in node_ids:
+                raise e
 
 def decommission_workloads(zos, wids):
     for wid in wids:
@@ -172,7 +178,7 @@ def delete_network_nodes(network_name, nodes, identity_name):
             changed = True
             wids += zos.network.delete_node(network, node_id)
     decommission_workloads(zos, wids)
-    update_network(zos, network)
+    update_network(zos, network, list(nodes.keys()))
     return changed
 
 

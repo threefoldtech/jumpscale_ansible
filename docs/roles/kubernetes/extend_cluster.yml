@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  vars:
+    network_name: testnet
+    pool_id: 149
+    cluster_secret: passwd12#$
+    ssh_keys:
+      - "/home/maged/Keys/id_rsa.pub"
+    size: 15
+    master_ip: 10.217.7.188
+    cru: 1
+    mru: 2
+    sru: 25
+  roles:
+    - kubernetes

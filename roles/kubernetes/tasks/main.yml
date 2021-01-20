@@ -1,0 +1,160 @@
+- block:
+  - name: fetch kubenretes workload in the same network
+    workload:
+      types:
+        - kubernetes
+      match:
+        network_id: "{{ network_name }}"
+      next_action: deploy
+    register: running_workloads
+
+
+  - name: select node
+    scheduler: 
+      pool_id: "{{ pool_id }}"
+      query_name: "my_node"
+      no_nodes: 1
+      cru: "{{ cru }}"
+      mru: "{{ mru }}"
+      sru: "{{ sru }}"
+      excluded_nodes: "{{ running_workloads | map(attribute='info.node_id') | list }}"
+
+  - debug:
+      msg: "Selected node: {{ ansible_facts['my_node'][0] }}"
+
+
+  - name: get free range to update network
+    ip_management: 
+      network_name: "{{ network_name }}"
+      operation: get_free_range
+      fact_name: ip_range
+
+
+  - name: add node to network
+    network_node:
+      name: "{{ network_name }}"
+      nodes: "{{ { ansible_facts['my_node'][0]: ansible_facts['ip_range'] } }}"
+      pool_id: "{{ pool_id }}"
+      type: normal
+
+
+  - name: get free ip address on the node
+    ip_management: 
+      network_name: "{{ network_name }}"
+      operation: get_ip
+      node_id: "{{ ansible_facts['my_node'][0] }}"
+      fact_name: ip_address
+    
+  - debug:
+      msg: "Selected free ip: {{ ansible_facts['ip_address'] }}"
+
+
+- block:
+  - name: deploy master
+    kubernetes:
+      pool_id: "{{ pool_id }}"
+      node_id: "{{ ansible_facts['my_node'][0] }}"
+      network_name: "{{ network_name }}"
+      ip_address: "{{ ansible_facts['ip_address'] }}"
+      cluster_secret: "{{ cluster_secret }}"
+      ssh_keys: "{{ ssh_keys }}"
+      size: "{{ size }}"
+    register: master_result
+
+  - debug:
+      msg: "master wid: {{ master_result['wid'] }}"
+
+
+  - name: get master_workload if newly deployed
+    workload:
+      wid: "{{ master_result['wid'] }}"
+    register: master_workload
+
+  - debug:
+      msg: "master_ip: {{ ansible_facts['workloads'][0]['ipaddress'] }}"
+  when: master_ip is not defined
+
+- block:
+  - name: deploy worker for master ip
+    kubernetes:
+      pool_id: "{{ pool_id }}"
+      node_id: "{{ ansible_facts['my_node'][0] }}"
+      network_name: "{{ network_name }}"
+      ip_address: "{{ ansible_facts['ip_address'] }}"
+      cluster_secret: "{{ cluster_secret }}"
+      ssh_keys: "{{ ssh_keys }}"
+      size: "{{ size }}"
+      master_ip: "{{ master_ip }}"
+    register: master_result
+
+  - debug:
+      msg: "master wid: {{ master_result['wid'] }}"
+
+  when: master_ip is defined
+
+
+- block:
+  - name: fetch kubenretes workload in the same network
+    workload:
+      types:
+        - kubernetes
+      match:
+        network_id: "{{ network_name }}"
+      next_action: deploy
+    register: running_workloads
+
+
+  - name: select node
+    scheduler: 
+      pool_id: "{{ pool_id }}"
+      query_name: "my_node"
+      no_nodes: 1
+      cru: "{{ cru }}"
+      mru: "{{ mru }}"
+      sru: "{{ sru }}"
+      excluded_nodes: "{{ running_workloads | map(attribute='info.node_id') | list }}"
+
+  - debug:
+      msg: "Selected node: {{ ansible_facts['my_node'][0] }}"
+
+
+  - name: get free range to update network
+    ip_management: 
+      network_name: "{{ network_name }}"
+      operation: get_free_range
+      fact_name: ip_range
+
+
+  - name: add node to network
+    network_node:
+      name: "{{ network_name }}"
+      nodes: "{{ { ansible_facts['my_node'][0]: ansible_facts['ip_range'] } }}"
+      pool_id: "{{ pool_id }}"
+      type: normal
+
+
+  - name: get free ip address on the node
+    ip_management: 
+      network_name: "{{ network_name }}"
+      operation: get_ip
+      node_id: "{{ ansible_facts['my_node'][0] }}"
+      fact_name: ip_address
+    
+  - debug:
+      msg: "Selected free ip: {{ ansible_facts['ip_address'] }}"
+  - debug: 
+      msg: "{{ master_workload }}"
+
+  - name: deploy worker for the deployed master
+    kubernetes:
+      pool_id: "{{ pool_id }}"
+      node_id: "{{ ansible_facts['my_node'][0] }}"
+      network_name: "{{ network_name }}"
+      ip_address: "{{ ansible_facts['ip_address'] }}"
+      cluster_secret: "{{ cluster_secret }}"
+      ssh_keys: "{{ ssh_keys }}"
+      size: "{{ size }}"
+      master_ip: "{{ ansible_facts['workloads'][0]['ipaddress'] }}"
+    register: master_result
+
+  when: master_ip is not defined
