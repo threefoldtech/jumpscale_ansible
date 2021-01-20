@@ -17,11 +17,13 @@
     - debug:
         msg: "result: {{ result }}"
 
-    - name: "test list deployed workload facts"
+    - name: "testfilter"
       threefold.jsgrid.workload: 
-        next_action: deploy
         types:
-          - container
+          - network_resource
+        match:
+          info.node_id: 8zPYak76CXcoZxRoJBjdU69kVjo7XYU1SFE2NEK4UMqn
+          name: testneterhoeh
       register: result
 
     - debug:
