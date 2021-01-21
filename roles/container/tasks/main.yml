@@ -1,6 +1,6 @@
 ---
 - name: select node
-  scheduler: 
+  threefold.jsgrid.scheduler: 
     pool_id: "{{ pool_id }}"
     ip_version: "{{ ip_version }}"
     query_name: "my_node"
@@ -10,13 +10,13 @@
     msg: "Selected node: {{ ansible_facts['my_node'][0] }}"
 
 - name: get free range to update network
-  ip_management: 
+  threefold.jsgrid.ip_management: 
     network_name: "{{ network_name }}"
     operation: get_free_range
     fact_name: ip_range
 
 - name: add node to network
-  network_node:
+  threefold.jsgrid.network_node:
     name: "{{ network_name }}"
     nodes: "{{ { ansible_facts['my_node'][0]: ansible_facts['ip_range'] } }}"
     pool_id: "{{ pool_id }}"

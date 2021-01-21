@@ -1,6 +1,6 @@
 - block:
   - name: fetch kubenretes workload in the same network
-    workload:
+    threefold.jsgrid.workload:
       types:
         - kubernetes
       match:
@@ -10,7 +10,7 @@
 
 
   - name: select node
-    scheduler: 
+    threefold.jsgrid.scheduler: 
       pool_id: "{{ pool_id }}"
       query_name: "my_node"
       no_nodes: 1
@@ -24,14 +24,14 @@
 
 
   - name: get free range to update network
-    ip_management: 
+    threefold.jsgrid.ip_management: 
       network_name: "{{ network_name }}"
       operation: get_free_range
       fact_name: ip_range
 
 
   - name: add node to network
-    network_node:
+    threefold.jsgrid.network_node:
       name: "{{ network_name }}"
       nodes: "{{ { ansible_facts['my_node'][0]: ansible_facts['ip_range'] } }}"
       pool_id: "{{ pool_id }}"
@@ -39,7 +39,7 @@
 
 
   - name: get free ip address on the node
-    ip_management: 
+    threefold.jsgrid.ip_management: 
       network_name: "{{ network_name }}"
       operation: get_ip
       node_id: "{{ ansible_facts['my_node'][0] }}"
@@ -51,7 +51,7 @@
 
 - block:
   - name: deploy master
-    kubernetes:
+    threefold.jsgrid.kubernetes:
       pool_id: "{{ pool_id }}"
       node_id: "{{ ansible_facts['my_node'][0] }}"
       network_name: "{{ network_name }}"
@@ -76,7 +76,7 @@
 
 - block:
   - name: deploy worker for master ip
-    kubernetes:
+    threefold.jsgrid.kubernetes:
       pool_id: "{{ pool_id }}"
       node_id: "{{ ansible_facts['my_node'][0] }}"
       network_name: "{{ network_name }}"
@@ -95,7 +95,7 @@
 
 - block:
   - name: fetch kubenretes workload in the same network
-    workload:
+    threefold.jsgrid.workload:
       types:
         - kubernetes
       match:
@@ -105,7 +105,7 @@
 
 
   - name: select node
-    scheduler: 
+    threefold.jsgrid.scheduler: 
       pool_id: "{{ pool_id }}"
       query_name: "my_node"
       no_nodes: 1
@@ -119,14 +119,14 @@
 
 
   - name: get free range to update network
-    ip_management: 
+    threefold.jsgrid.ip_management: 
       network_name: "{{ network_name }}"
       operation: get_free_range
       fact_name: ip_range
 
 
   - name: add node to network
-    network_node:
+    threefold.jsgrid.network_node:
       name: "{{ network_name }}"
       nodes: "{{ { ansible_facts['my_node'][0]: ansible_facts['ip_range'] } }}"
       pool_id: "{{ pool_id }}"
@@ -134,7 +134,7 @@
 
 
   - name: get free ip address on the node
-    ip_management: 
+    threefold.jsgrid.ip_management: 
       network_name: "{{ network_name }}"
       operation: get_ip
       node_id: "{{ ansible_facts['my_node'][0] }}"
@@ -146,7 +146,7 @@
       msg: "{{ master_workload }}"
 
   - name: deploy worker for the deployed master
-    kubernetes:
+    threefold.jsgrid.kubernetes:
       pool_id: "{{ pool_id }}"
       node_id: "{{ ansible_facts['my_node'][0] }}"
       network_name: "{{ network_name }}"
