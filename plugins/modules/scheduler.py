@@ -85,6 +85,16 @@ options:
         required: False
         type: bool
         default: True
+    gateway:
+        description: return gateway nodes
+        required: False
+        type: bool
+        default: False
+    managed:
+        description: return gateway nodes with managed domains
+        required: False
+        type: bool
+        default: True
 
 
 author:
@@ -122,6 +132,7 @@ def run_module():
         excluded_nodes=dict(type='list', required=False, default=[]),
         randomize=dict(type='bool', required=False, default=True),
         gateway=dict(type='bool', required=False, default=False),
+        managed=dict(type='bool', required=False, default=True),
     )
 
     result = dict(
@@ -169,6 +180,8 @@ def run_module():
             farm_id = zos._explorer.farms.get(farm_name=module.params["farm_name"])
         if farm_id:
             filters.append(lambda node: node.farm_id == farm_id)
+        if module.params["managed"]:
+            filters.append(lambda node: len(node.managed_domains) != 0)
 
     nodes = list(filter(lambda node: all(f(node) for f in filters), nodes))
     if len(nodes) < module.params["no_nodes"]:
