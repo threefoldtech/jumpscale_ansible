@@ -175,8 +175,8 @@ def run_module():
     zos = j.sals.zos.get(module.params['identity_name'])
     secret_env = {}
     if module.params["secret_env"]:
-        for key, val in module.params["secret_env"]:
-            secret_env[key] = zos.container.encrypt_secret(module.params["node_id"], val)
+        for key, val in module.params["secret_env"].items():
+            secret_env[key] = zos.container.encrypt_secret(module.params["node_id"], str(val))
     cont = zos.container.create(
         node_id=module.params["node_id"],
         network_name=module.params["network_name"],

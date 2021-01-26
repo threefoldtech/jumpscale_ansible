@@ -1,0 +1,6 @@
+---
+metadata:
+domain_type: custom
+public_key: ""
+tls_port: 443
+type: nginx
