@@ -1,0 +1,36 @@
+---
+- name: Create user network
+  hosts: localhost
+  tasks:
+    - name: "Create network"
+      threefold.jsgrid.usr.network:
+        name: user
+        state: present
+
+    - name: "Add some nodes to the network"
+      threefold.jsgrid.usr.network_node:
+        name: user
+        state: present
+        nodes:
+          - Gr8NxBLHe7yjSsnSTgTqGr7BHbyAUVPJqs8fnudEE4Sf
+          - 3NAkUYqm5iPRmNAnmLfjwdreqDssvsebj4uPUt9BxFPm
+    - name: "Add access to the network"
+      threefold.jsgrid.usr.network_access:
+        name: user
+        ipv4: False
+      register: wg
+    
+    - debug:
+        msg: "wg_conf: {{ wg }}"
+
+    - name: "Delete a node from the network"
+      threefold.jsgrid.usr.network_node:
+        name: user
+        state: absent
+        nodes:
+          - Gr8NxBLHe7yjSsnSTgTqGr7BHbyAUVPJqs8fnudEE4Sf
+    - name: "Delete the network"
+      threefold.jsgrid.usr.network:
+        name: user
+        state: absent
+      
