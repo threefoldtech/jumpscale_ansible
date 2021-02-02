@@ -1,0 +1,61 @@
+---
+- name: select node
+  threefold.jsgrid.scheduler: 
+    pool_id: "{{ pool_id }}"
+    ip_version: "{{ ip_version }}"
+    query_name: "my_node"
+    cru: "{{ cpu }}"
+    mru: "{{ (memory|int / 1024) | int }}"
+    sru: "{{ disk_size }}"
+    no_nodes: 1
+
+- debug:
+    msg: "Selected node: {{ ansible_facts['my_node'][0] }}"
+
+- name: get free range to update network
+  threefold.jsgrid.ip_management: 
+    network_name: "{{ network_name }}"
+    operation: get_free_range
+    fact_name: ip_range
+
+- name: add node to network
+  threefold.jsgrid.usr.network_node:
+    name: "{{ network_name }}"
+    nodes: "{{ ansible_facts['my_node'][0] }}"
+    state: present
+
+- name: get free ip address on the node
+  threefold.jsgrid.ip_management: 
+    network_name: "{{ network_name }}"
+    operation: get_ip
+    node_id: "{{ ansible_facts['my_node'][0] }}"
+    fact_name: ip_address
+  
+- debug:
+    msg: "Selected free ip: {{ ansible_facts['ip_address'] }}"
+
+- name: encrypt metadata
+  threefold.jsgrid.metadata:
+    state: encrypt
+    metadata: "{{ metadata }}"
+    identity_name: asamir_test
+  register: encrypted_metadata
+
+- name: create container
+  threefold.jsgrid.usr.container: 
+    pool_id: "{{ pool_id }}"
+    network_name: "{{ network_name }}"
+    flist: "https://hub.grid.tf/omar0.3bot/omarelawady-trc-zinit.flist"
+    node_id: "{{ ansible_facts['my_node'][0] }}"
+    cpu: "{{ cpu }}"
+    memory: "{{ memory }}"
+    disk_size: "{{ disk_size }}"
+    interactive: true
+    description: "test ansible container"
+    metadata: "{{ encrypted_metadata['message'] }}"
+    env:
+      testkey: testval
+  register: result
+
+- debug:
+    msg: "{{ result }}"
