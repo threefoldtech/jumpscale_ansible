@@ -137,7 +137,6 @@ def run_module():
 
     result = dict(
         changed=False,
-        message="",
     )
 
     module = AnsibleModule(
@@ -162,8 +161,8 @@ def run_module():
             city=module.params["city"],
             cru=module.params["cru"],
             mru=module.params["mru"],
-            sru=module.params['sru'],
-            hru=module.params['hru'],
+            sru=module.params["sru"],
+            hru=module.params["hru"],
             pool_id=module.params["pool_id"],
         )
     else:
