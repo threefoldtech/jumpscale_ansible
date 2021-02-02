@@ -140,7 +140,7 @@ def run_module():
         network_name=dict(type='str', required=True),
         flist=dict(type='str', required=True),
         node_id=dict(type='str', required=True),
-        ip_address=dict(type='str', required=False)0,
+        ip_address=dict(type='str', required=False),
         # args with default vals
         env=dict(type='dict', required=False, default={}),
         cpu=dict(type='int', required=False, default=1),
