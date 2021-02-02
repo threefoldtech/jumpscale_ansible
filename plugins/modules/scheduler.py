@@ -44,19 +44,19 @@ options:
     cru:
         description: how much free cru on the node
         required: False
-        type: str
+        type: int
     mru:
         description: how much free mru on the node
         required: False
-        type: str
+        type: int
     sru:
         description: how much free sru on the node
         required: False
-        type: str
+        type: int
     hru:
         description: how much free hru on the node
         required: False
-        type: str
+        type: int
     ip_version:
         description: ip version available on the node
         required: False
@@ -121,10 +121,10 @@ def run_module():
         farm_name=dict(type='str', required=False),
         country=dict(type='str', required=False),
         city=dict(type='str', required=False),
-        cru=dict(type='str', required=False),
-        mru=dict(type='str', required=False),
-        sru=dict(type='str', required=False),
-        hru=dict(type='str', required=False),
+        cru=dict(type='int', required=False),
+        mru=dict(type='int', required=False),
+        sru=dict(type='int', required=False),
+        hru=dict(type='int', required=False),
         ip_version=dict(type='str', required=False, choices=["ipv4", "ipv6"]),
         public_ip=dict(type='bool', required=False),
         no_nodes=dict(type='int', required=False, default=1),
@@ -160,10 +160,10 @@ def run_module():
             farm_name=module.params["farm_name"],
             country=module.params["country"],
             city=module.params["city"],
-            cru=float(module.params["cru"]),
-            mru=float(module.params["mru"]),
-            sru=float(module.params.get('sru') or "0"),
-            hru=float(module.params.get('hru') or "0"),
+            cru=module.params["cru"],
+            mru=module.params["mru"],
+            sru=module.params['sru'],
+            hru=module.params['hru'],
             pool_id=module.params["pool_id"],
         )
     else:
