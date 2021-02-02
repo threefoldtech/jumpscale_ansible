@@ -1,0 +1,87 @@
+---
+- name: Select a gateway
+  node:
+    node_id: "{{ gateway_id }}"
+    gateway: true
+    identity_name: "{{ identity_name }}"
+  register: gateway_result
+
+- name: Select a node for the trc or nginx container
+  scheduler:
+    identity_name: "{{ identity_name }}"
+    pool_id: "{{ pool_id }}"
+    mru: 1
+    sru: 1
+    query_name: "container_node"
+- debug:
+    msg: "{{ { ansible_facts['container_node'][0]: ansible_facts['range_1'] } }}"
+
+- name: Add the node to the network
+  threefold.jsgrid.usr.network_node:
+    name: "{{ network_name }}"
+    identity_name: "{{ identity_name }}"
+    nodes: "{{ [ ansible_facts['container_node'][0] ] }}"
+  register: network_result
+
+- name: Encrypt metadata
+  metadata:
+    state: encrypt
+    metadata: "{{ metadata }}"
+    identity_name: "{{ identity_name }}"
+  register: metadata_encrypted
+
+- name: Create the reverse proxy
+  proxy:
+    state: present
+    pool: "{{ pool_id }}"
+    gateway: "{{ gateway_id }}"
+    domain: "{{ domain }}"
+    trc_secret: "{{ trc_secret }}"
+    metadata: "{{ metadata }}"
+    description: "Created by Samir"
+
+- name: Create a subdomain
+  subdomain:
+    state: present
+    pool: "{{ pool_id }}"
+    gateway: "{{ gateway_id }}"
+    subdomain: "{{ domain }}"
+    metadata: "{{ metadata_encrypted['message'] }}"
+  when: domain_type == 'managed'
+
+- name: Deploy nginx container
+  threefold.jsgrid.usr.container:
+    identity_name: "{{ identity_name }}"
+    pool_id: "{{ pool_id }}"
+    network_name: "{{ network_name }}"
+    flist: "https://hub.grid.tf/omar0.3bot/omarelawady-nginx-certbot-zinit.flist"
+    node_id: "{{ ansible_facts['container_node'][0] }}"
+    secret_env:
+      TRC_SECRET: "{{ trc_secret }}"
+      TFGATEWAY: "{{ ansible_facts[gateway_id]['dns_nameserver'][0] }}:{{ ansible_facts[gateway_id]['tcp_router_port'] }}"
+      EMAIL: "7madaellol@gmail.com"
+      SOLUTION_IP: "{{ solution_ip }}"
+      SOLUTION_PORT: "{{ solution_port }}"
+      DOMAIN: "{{ domain }}"
+      ENFORCE_HTTPS: "false"
+      PUBKEY: "{{ public_key }}"
+      TEST_CERT: "true"
+    metadata: "{{ metadata_encrypted['message'] }}"
+  when: type == 'nginx'
+
+- name: Deploy trc container
+  threefold.jsgrid.usr.container:
+    identity_name: "{{ identity_name }}"
+    pool_id: "{{ pool_id }}"
+    network_name: "{{ network_name }}"
+    flist: "https://hub.grid.tf/omar0.3bot/omarelawady-trc-zinit.flist"
+    node_id: "{{ ansible_facts['container_node'][0] }}"
+    env:
+      SOLUTION_IP: "{{ solution_ip }}"
+      HTTP_PORT: "{{ solution_port|string }}"
+      HTTPS_PORT: "{{ tls_port|string }}"
+      REMOTE_IP: "{{ ansible_facts[gateway_id]['dns_nameserver'][0] }}"
+      REMOTE_PORT: "{{ ansible_facts[gateway_id]['tcp_router_port']|string }}"
+    secret_env:
+      TRC_SECRET: "{{ trc_secret }}"
+  when: type == 'trc'
