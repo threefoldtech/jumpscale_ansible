@@ -1,9 +1,12 @@
 ---
 - name: select node
-  threefold.jsgrid.scheduler: 
+  threefold.jsgrid.scheduler:
     pool_id: "{{ pool_id }}"
     ip_version: "{{ ip_version }}"
     query_name: "my_node"
+    cru: "{{ cpu }}"
+    mru: "{{ (memory|int / 1024) | int }}"
+    sru: "{{ disk_size }}"
     no_nodes: 1
 
 - debug:
