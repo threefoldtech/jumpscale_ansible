@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>plugins.modules.network_node API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>plugins.modules.network_node</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/python
+
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
+
+DOCUMENTATION = r&#39;&#39;&#39;
+---
+module: network
+
+short_description: A module to add/remove normal and access nodes to the network.
+
+version_added: &#34;1.0.0&#34;
+
+description: A module to add/remove normal and access nodes to the network.
+
+options:
+    name:
+        description: The network name. Created if it doesn&#39;t exist.
+        required: true
+        type: str
+    type:
+        description: access|normal
+        required: false
+        default: normal
+        type: str
+    identity_name:
+        description: The identity instance name registered on the system for the network to be created with.
+        required: false
+        default: The default identity
+        type: str
+    pool_id:
+        description: The pool id to create the network on.
+        required: true
+        type: int
+    nodes:
+        description: A mapping from node ids to ip ranges (range can be anything when adding access). Its length must be one when adding access
+        required: true
+        type: dict
+    ipv4:
+        description: The ip version when adding access. Detected automatically when ommited.
+        required: false
+        type: str
+
+author:
+    - Omar Elawady (@OmarElawady)
+&#39;&#39;&#39;
+
+EXAMPLES = r&#39;&#39;&#39;
+# Pass in a message
+- name: Add a node to the network
+  network_node:
+    name: management
+    pool_id: 34
+    nodes:
+        26ZATmd3K1fjeQKQsi8Dr7bm9iSRa3ePsV8ubMcbZEuY: 10.100.2.0/24
+    identity_name: omar
+    type: access
+    state: present
+&#39;&#39;&#39;
+
+RETURN = r&#39;&#39;&#39;
+changed: False
+wg_config: &#34;config&#34; # in case of adding access
+&#39;&#39;&#39;
+from jumpscale.loader import j
+from jumpscale.clients.explorer.models import NextAction
+from ansible.module_utils.basic import AnsibleModule
+import traceback
+from time import time
+import netaddr
+
+def wait_until_deployed(zos, wid, expiration=3):
+    start = time()
+
+    while time() - start &lt; expiration * 60:
+        workload = zos.workloads.get(wid)
+        if workload.info.result.workload_id:
+            success = workload.info.result.state.value == 1
+            if success:
+                return True
+            else:
+                error_message = workload.info.result.message
+                raise Exception(f&#34;Failed to add node with workload id {wid} to the network due to the error: {error_message}&#34;)    
+    raise TimeoutError(f&#34;Failed to add the node to the network in time. Workload id is {wid}&#34;)
+
+def wait_until_decommissioned(zos, wid, expiration=3):
+    start = time()
+
+    while time() - start &lt; expiration * 60:
+        workload = zos.workloads.get(wid)
+        if workload.info.next_action == NextAction.DELETED or workload.info.next_action == NextAction.DELETE:
+            return True
+            
+    raise TimeoutError(f&#34;Failed to decmmission wid {wid}&#34;)
+
+
+
+def is_node_in_network(network, node_id):
+    return network.get_node_range(node_id) is not None
+
+def add_network_node(network_name, node_id, ip_range, identity_name, pool_id):
+    zos = j.sals.zos.get(identity_name)
+    network = zos.network.load_network(network_name)
+    if is_node_in_network(network, node_id):
+        return False
+    if network is None:
+        raise Exception(f&#34;The network {network_name} doesn&#39;t exist&#34;)
+    zos.network.add_node(network, node_id, ip_range, pool_id)
+    update_network(zos, network, [node_id])
+    return True
+
+def get_network_range(subnet):
+    network = netaddr.IPNetwork(subnet)
+    return str(network.supernet(16)[0])
+
+def add_network_nodes(network_name, nodes, identity_name, pool_id):
+    changed = False
+    zos = j.sals.zos.get(identity_name)
+    network = zos.network.load_network(network_name)
+    if network is None:
+        ip_range = get_network_range(list(nodes.values())[0])
+        network = zos.network.create(ip_range, network_name)
+    for node_id, ip_range in nodes.items():
+        if is_node_in_network(network, node_id):
+            continue
+        changed = True
+        zos.network.add_node(network, node_id, ip_range, pool_id)
+    update_network(zos, network, list(nodes.keys()))
+    return changed
+
+def is_node_ipv4(node_id):
+    zos = j.sals.zos.get()
+    return zos.nodes_finder.filter_public_ip4(zos._explorer.nodes.get(node_id))
+
+def add_network_access(network_name, nodes, identity_name, ipv4):
+    node_id, ip_range = list(nodes.items())[0]
+    ipv4 = ipv4 or is_node_ipv4(node_id)
+    zos = j.sals.zos.get(identity_name)
+    network = zos.network.load_network(network_name)
+    if not network:
+        raise Exception(&#34;You have to create the network and add the node to it before making it an access node.&#34;)
+    if not is_node_in_network(network, node_id):
+        raise Exception(&#34;You have to add the node to the network before adding it as an access node.&#34;)
+    if network is None:
+        raise Exception(f&#34;The network {network_name} doesn&#39;t exist&#34;)
+    wg_config = zos.network.add_access(network, node_id, ip_range, ipv4=ipv4)
+    update_network(zos, network, list(nodes.keys()))
+    return wg_config
+
+def update_network(zos, network, node_ids):
+    wids = []
+    for network_resource in network.network_resources:
+        wids.append(zos.workloads.deploy(network_resource))
+    for wid in wids:
+        workload = zos.workloads.get(wid)
+        timeout = 3 if workload.info.node_id in node_ids else 1
+        try:
+            wait_until_deployed(zos, wid, timeout)
+        except TimeoutError as e:
+            if workload.info.node_id in node_ids:
+                raise e
+
+def decommission_workloads(zos, wids):
+    for wid in wids:
+        zos.workloads.decomission(wid)
+    for wid in wids:
+        wait_until_decommissioned(zos, wid)
+
+def delete_network_nodes(network_name, nodes, identity_name):
+    changed = False
+    zos = j.sals.zos.get(identity_name)
+    network = zos.network.load_network(network_name)
+    if network is None:
+        return False
+    wids = []
+    for node_id, _ in nodes.items():
+        if is_node_in_network(network, node_id):
+            changed = True
+            wids += zos.network.delete_node(network, node_id)
+    decommission_workloads(zos, wids)
+    update_network(zos, network, list(nodes.keys()))
+    return changed
+
+
+def run_module():
+    module_args = dict(
+        name=dict(type=&#39;str&#39;, required=True),
+        nodes=dict(type=&#39;dict&#39;, required=True),
+        pool_id=dict(type=&#39;int&#39;, required=False),
+        type=dict(type=&#39;str&#39;, default=&#39;normal&#39;),
+        state=dict(type=&#39;str&#39;, default=&#39;present&#39;),
+        ipv4=dict(type=&#34;bool&#34;, required=False),
+        identity_name=dict(type=&#39;str&#39;, required=False),
+    )
+
+    result = dict(
+        changed=False,
+        wg_config=&#34;&#34;
+    )
+
+    module = AnsibleModule(
+        argument_spec=module_args,
+        supports_check_mode=True,
+        mutually_exclusive=[
+            [&#39;type&#39;, &#39;state&#39;]
+        ]
+    )
+        
+    name = module.params.get(&#39;name&#39;)
+    type = module.params.get(&#39;type&#39;)
+    pool_id = module.params.get(&#39;pool_id&#39;)
+    identity_name = module.params.get(&#39;identity_name&#39;)
+    state = module.params.get(&#39;state&#39;)
+    nodes = module.params.get(&#39;nodes&#39;)
+    
+    if type == &#34;access&#34; and len(nodes) != 1:
+        module.fail_json(msg=&#34;You can add access to exactly one node.&#34;, **result)
+        
+    if identity_name and j.core.identity.find(identity_name) is None:
+        module.fail_json(msg=&#39;Identity not registered, please use the identity module to add this identity&#39;, **result)
+    try:
+        if state == &#39;absent&#39;:
+            if type == &#39;access&#39;:
+                raise Exception(&#34;Deleting access is not supported. Only normal nodes can be removed.&#34;)
+            else:
+                result[&#39;changed&#39;] = delete_network_nodes(name, nodes, identity_name)
+        else:
+            if type == &#34;normal&#34;:
+                if pool_id is None:
+                    raise Exception(&#34;Missing required value pool_id when adding a node&#34;)
+                result[&#34;changed&#34;] = add_network_nodes(name, nodes, identity_name, pool_id)
+            elif type == &#34;access&#34;:
+                result[&#34;wg_config&#34;] = add_network_access(name, nodes, identity_name, pool_id)
+                result[&#34;changed&#34;] = True
+            else:
+                raise Exception(f&#34;Unrecognized type: {type}. Types allowed are \&#34;normal\&#34; and \&#34;access\&#34;&#34;)
+    except Exception:
+        module.fail_json(msg=traceback.format_exc(), **result)
+
+    module.exit_json(**result)
+
+
+def main():
+    run_module()
+
+
+if __name__ == &#39;__main__&#39;:
+    main()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="plugins.modules.network_node.add_network_access"><code class="name flex">
+<span>def <span class="ident">add_network_access</span></span>(<span>network_name, nodes, identity_name, ipv4)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_network_access(network_name, nodes, identity_name, ipv4):
+    node_id, ip_range = list(nodes.items())[0]
+    ipv4 = ipv4 or is_node_ipv4(node_id)
+    zos = j.sals.zos.get(identity_name)
+    network = zos.network.load_network(network_name)
+    if not network:
+        raise Exception(&#34;You have to create the network and add the node to it before making it an access node.&#34;)
+    if not is_node_in_network(network, node_id):
+        raise Exception(&#34;You have to add the node to the network before adding it as an access node.&#34;)
+    if network is None:
+        raise Exception(f&#34;The network {network_name} doesn&#39;t exist&#34;)
+    wg_config = zos.network.add_access(network, node_id, ip_range, ipv4=ipv4)
+    update_network(zos, network, list(nodes.keys()))
+    return wg_config</code></pre>
+</details>
+</dd>
+<dt id="plugins.modules.network_node.add_network_node"><code class="name flex">
+<span>def <span class="ident">add_network_node</span></span>(<span>network_name, node_id, ip_range, identity_name, pool_id)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_network_node(network_name, node_id, ip_range, identity_name, pool_id):
+    zos = j.sals.zos.get(identity_name)
+    network = zos.network.load_network(network_name)
+    if is_node_in_network(network, node_id):
+        return False
+    if network is None:
+        raise Exception(f&#34;The network {network_name} doesn&#39;t exist&#34;)
+    zos.network.add_node(network, node_id, ip_range, pool_id)
+    update_network(zos, network, [node_id])
+    return True</code></pre>
+</details>
+</dd>
+<dt id="plugins.modules.network_node.add_network_nodes"><code class="name flex">
+<span>def <span class="ident">add_network_nodes</span></span>(<span>network_name, nodes, identity_name, pool_id)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_network_nodes(network_name, nodes, identity_name, pool_id):
+    changed = False
+    zos = j.sals.zos.get(identity_name)
+    network = zos.network.load_network(network_name)
+    if network is None:
+        ip_range = get_network_range(list(nodes.values())[0])
+        network = zos.network.create(ip_range, network_name)
+    for node_id, ip_range in nodes.items():
+        if is_node_in_network(network, node_id):
+            continue
+        changed = True
+        zos.network.add_node(network, node_id, ip_range, pool_id)
+    update_network(zos, network, list(nodes.keys()))
+    return changed</code></pre>
+</details>
+</dd>
+<dt id="plugins.modules.network_node.decommission_workloads"><code class="name flex">
+<span>def <span class="ident">decommission_workloads</span></span>(<span>zos, wids)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def decommission_workloads(zos, wids):
+    for wid in wids:
+        zos.workloads.decomission(wid)
+    for wid in wids:
+        wait_until_decommissioned(zos, wid)</code></pre>
+</details>
+</dd>
+<dt id="plugins.modules.network_node.delete_network_nodes"><code class="name flex">
+<span>def <span class="ident">delete_network_nodes</span></span>(<span>network_name, nodes, identity_name)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def delete_network_nodes(network_name, nodes, identity_name):
+    changed = False
+    zos = j.sals.zos.get(identity_name)
+    network = zos.network.load_network(network_name)
+    if network is None:
+        return False
+    wids = []
+    for node_id, _ in nodes.items():
+        if is_node_in_network(network, node_id):
+            changed = True
+            wids += zos.network.delete_node(network, node_id)
+    decommission_workloads(zos, wids)
+    update_network(zos, network, list(nodes.keys()))
+    return changed</code></pre>
+</details>
+</dd>
+<dt id="plugins.modules.network_node.get_network_range"><code class="name flex">
+<span>def <span class="ident">get_network_range</span></span>(<span>subnet)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_network_range(subnet):
+    network = netaddr.IPNetwork(subnet)
+    return str(network.supernet(16)[0])</code></pre>
+</details>
+</dd>
+<dt id="plugins.modules.network_node.is_node_in_network"><code class="name flex">
+<span>def <span class="ident">is_node_in_network</span></span>(<span>network, node_id)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_node_in_network(network, node_id):
+    return network.get_node_range(node_id) is not None</code></pre>
+</details>
+</dd>
+<dt id="plugins.modules.network_node.is_node_ipv4"><code class="name flex">
+<span>def <span class="ident">is_node_ipv4</span></span>(<span>node_id)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_node_ipv4(node_id):
+    zos = j.sals.zos.get()
+    return zos.nodes_finder.filter_public_ip4(zos._explorer.nodes.get(node_id))</code></pre>
+</details>
+</dd>
+<dt id="plugins.modules.network_node.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main():
+    run_module()</code></pre>
+</details>
+</dd>
+<dt id="plugins.modules.network_node.run_module"><code class="name flex">
+<span>def <span class="ident">run_module</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run_module():
+    module_args = dict(
+        name=dict(type=&#39;str&#39;, required=True),
+        nodes=dict(type=&#39;dict&#39;, required=True),
+        pool_id=dict(type=&#39;int&#39;, required=False),
+        type=dict(type=&#39;str&#39;, default=&#39;normal&#39;),
+        state=dict(type=&#39;str&#39;, default=&#39;present&#39;),
+        ipv4=dict(type=&#34;bool&#34;, required=False),
+        identity_name=dict(type=&#39;str&#39;, required=False),
+    )
+
+    result = dict(
+        changed=False,
+        wg_config=&#34;&#34;
+    )
+
+    module = AnsibleModule(
+        argument_spec=module_args,
+        supports_check_mode=True,
+        mutually_exclusive=[
+            [&#39;type&#39;, &#39;state&#39;]
+        ]
+    )
+        
+    name = module.params.get(&#39;name&#39;)
+    type = module.params.get(&#39;type&#39;)
+    pool_id = module.params.get(&#39;pool_id&#39;)
+    identity_name = module.params.get(&#39;identity_name&#39;)
+    state = module.params.get(&#39;state&#39;)
+    nodes = module.params.get(&#39;nodes&#39;)
+    
+    if type == &#34;access&#34; and len(nodes) != 1:
+        module.fail_json(msg=&#34;You can add access to exactly one node.&#34;, **result)
+        
+    if identity_name and j.core.identity.find(identity_name) is None:
+        module.fail_json(msg=&#39;Identity not registered, please use the identity module to add this identity&#39;, **result)
+    try:
+        if state == &#39;absent&#39;:
+            if type == &#39;access&#39;:
+                raise Exception(&#34;Deleting access is not supported. Only normal nodes can be removed.&#34;)
+            else:
+                result[&#39;changed&#39;] = delete_network_nodes(name, nodes, identity_name)
+        else:
+            if type == &#34;normal&#34;:
+                if pool_id is None:
+                    raise Exception(&#34;Missing required value pool_id when adding a node&#34;)
+                result[&#34;changed&#34;] = add_network_nodes(name, nodes, identity_name, pool_id)
+            elif type == &#34;access&#34;:
+                result[&#34;wg_config&#34;] = add_network_access(name, nodes, identity_name, pool_id)
+                result[&#34;changed&#34;] = True
+            else:
+                raise Exception(f&#34;Unrecognized type: {type}. Types allowed are \&#34;normal\&#34; and \&#34;access\&#34;&#34;)
+    except Exception:
+        module.fail_json(msg=traceback.format_exc(), **result)
+
+    module.exit_json(**result)</code></pre>
+</details>
+</dd>
+<dt id="plugins.modules.network_node.update_network"><code class="name flex">
+<span>def <span class="ident">update_network</span></span>(<span>zos, network, node_ids)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_network(zos, network, node_ids):
+    wids = []
+    for network_resource in network.network_resources:
+        wids.append(zos.workloads.deploy(network_resource))
+    for wid in wids:
+        workload = zos.workloads.get(wid)
+        timeout = 3 if workload.info.node_id in node_ids else 1
+        try:
+            wait_until_deployed(zos, wid, timeout)
+        except TimeoutError as e:
+            if workload.info.node_id in node_ids:
+                raise e</code></pre>
+</details>
+</dd>
+<dt id="plugins.modules.network_node.wait_until_decommissioned"><code class="name flex">
+<span>def <span class="ident">wait_until_decommissioned</span></span>(<span>zos, wid, expiration=3)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def wait_until_decommissioned(zos, wid, expiration=3):
+    start = time()
+
+    while time() - start &lt; expiration * 60:
+        workload = zos.workloads.get(wid)
+        if workload.info.next_action == NextAction.DELETED or workload.info.next_action == NextAction.DELETE:
+            return True
+            
+    raise TimeoutError(f&#34;Failed to decmmission wid {wid}&#34;)</code></pre>
+</details>
+</dd>
+<dt id="plugins.modules.network_node.wait_until_deployed"><code class="name flex">
+<span>def <span class="ident">wait_until_deployed</span></span>(<span>zos, wid, expiration=3)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def wait_until_deployed(zos, wid, expiration=3):
+    start = time()
+
+    while time() - start &lt; expiration * 60:
+        workload = zos.workloads.get(wid)
+        if workload.info.result.workload_id:
+            success = workload.info.result.state.value == 1
+            if success:
+                return True
+            else:
+                error_message = workload.info.result.message
+                raise Exception(f&#34;Failed to add node with workload id {wid} to the network due to the error: {error_message}&#34;)    
+    raise TimeoutError(f&#34;Failed to add the node to the network in time. Workload id is {wid}&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="plugins.modules" href="index.html">plugins.modules</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="plugins.modules.network_node.add_network_access" href="#plugins.modules.network_node.add_network_access">add_network_access</a></code></li>
+<li><code><a title="plugins.modules.network_node.add_network_node" href="#plugins.modules.network_node.add_network_node">add_network_node</a></code></li>
+<li><code><a title="plugins.modules.network_node.add_network_nodes" href="#plugins.modules.network_node.add_network_nodes">add_network_nodes</a></code></li>
+<li><code><a title="plugins.modules.network_node.decommission_workloads" href="#plugins.modules.network_node.decommission_workloads">decommission_workloads</a></code></li>
+<li><code><a title="plugins.modules.network_node.delete_network_nodes" href="#plugins.modules.network_node.delete_network_nodes">delete_network_nodes</a></code></li>
+<li><code><a title="plugins.modules.network_node.get_network_range" href="#plugins.modules.network_node.get_network_range">get_network_range</a></code></li>
+<li><code><a title="plugins.modules.network_node.is_node_in_network" href="#plugins.modules.network_node.is_node_in_network">is_node_in_network</a></code></li>
+<li><code><a title="plugins.modules.network_node.is_node_ipv4" href="#plugins.modules.network_node.is_node_ipv4">is_node_ipv4</a></code></li>
+<li><code><a title="plugins.modules.network_node.main" href="#plugins.modules.network_node.main">main</a></code></li>
+<li><code><a title="plugins.modules.network_node.run_module" href="#plugins.modules.network_node.run_module">run_module</a></code></li>
+<li><code><a title="plugins.modules.network_node.update_network" href="#plugins.modules.network_node.update_network">update_network</a></code></li>
+<li><code><a title="plugins.modules.network_node.wait_until_decommissioned" href="#plugins.modules.network_node.wait_until_decommissioned">wait_until_decommissioned</a></code></li>
+<li><code><a title="plugins.modules.network_node.wait_until_deployed" href="#plugins.modules.network_node.wait_until_deployed">wait_until_deployed</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

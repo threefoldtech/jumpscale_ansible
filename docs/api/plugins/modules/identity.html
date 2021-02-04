@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>plugins.modules.identity API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>plugins.modules.identity</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/python
+
+
+DOCUMENTATION = r&#39;&#39;&#39;
+---
+module: Identity
+
+short_description: Identity module is responsible for managing tfexplorer user identities
+
+version_added: &#34;1.0.0&#34;
+
+description: Identity module is responsible for managing tfexplorer user identities
+
+options:
+    state:
+        description: state of the specified identity
+        required: true
+        type: str
+        choices: present, absent, list
+    instance_name:
+        description: name of the identity instance
+        required: false
+        type: str
+    set_default:
+        description: sets the default identity
+        required: false
+        type: bool
+    tname:
+        description: threebot name of the identity
+        required: false
+        type: str
+    email:
+        description: email of the identity
+        required: false
+        type: str
+    words:
+        description: secret words of the identity
+        required: false
+        type: str
+    explorer:
+        description: explorer name of the identity
+        required: false
+        type: str
+        choices: mainnet, testnet, devnet
+        default: testnet
+
+
+author:
+    - Ahmed Samir (@AhmedSa-mir)
+&#39;&#39;&#39;
+
+EXAMPLES = r&#39;&#39;&#39;
+# get identity (create if not exists)
+-   name: &#34;Test get identity&#34;
+    identity:
+        instance_name: ansident
+        state: present
+        tname: ansident.3bot
+        email: ansident@incubaid.com
+        words: nuclear file soda sting load frame field hold virus metal tragic grain owner skirt journey onion spirit until immune theory lunar fever scrub pelica
+        explorer: devnet
+
+# set default identity
+-   name: &#34;Test set default identity&#34;
+    identity:
+        instance_name: ansident
+        state: present
+        set_default: yes
+
+# list identities
+-   name: &#34;Test list identities&#34;
+    identity:
+        state: list
+
+# delete identity
+-   name: &#34;Test delete identity&#34;
+    identity:
+        instance_name: ansident
+        state: absent
+&#39;&#39;&#39;
+
+RETURN = r&#39;&#39;&#39;
+message:
+    description: The output message that the  module generates.
+    type: str
+    returned: always
+    sample: &#39;OK&#39;
+&#39;&#39;&#39;
+
+from ansible.module_utils.basic import AnsibleModule
+from jumpscale.loader import j
+
+EXPLORER_URLS = {
+    &#34;mainnet&#34;: &#34;https://explorer.grid.tf/api/v1&#34;,
+    &#34;testnet&#34;: &#34;https://explorer.testnet.grid.tf/api/v1&#34;,
+    &#34;devnet&#34;: &#34;https://explorer.devnet.grid.tf/api/v1&#34;,
+}
+
+def get(instance_name, tname, email, words, explorer):
+    explorer_url = EXPLORER_URLS[explorer]
+    return j.core.identity.get(instance_name, tname, email, words, explorer_url).to_dict()
+
+def delete(instance_name):
+    j.core.identity.delete(instance_name)
+
+def set_default(instance_name):
+    j.core.identity.set_default(instance_name)
+
+def list_all():
+    return list(j.core.identity.list_all())
+
+def run_module():
+    module_args = dict(
+        state=dict(type=&#39;str&#39;, required=True, choices=[&#39;present&#39;, &#39;absent&#39;, &#39;list&#39;]),
+        instance_name=dict(type=&#39;str&#39;, required=False),
+        set_default=dict(type=&#39;bool&#39;, required=False, default=False),
+        tname=dict(type=&#39;str&#39;, required=False),
+        email=dict(type=&#39;str&#39;, required=False),
+        words=dict(type=&#39;str&#39;, required=False),
+        explorer=dict(type=&#39;str&#39;, required=False, choices=[&#39;mainnet&#39;, &#39;testnet&#39;, &#39;devnet&#39;], default=&#34;testnet&#34;),
+    )
+
+    result = dict(
+        changed=False,
+        message=&#39;&#39;
+    )
+    module = AnsibleModule(
+        argument_spec=module_args,
+        required_together=[
+            (&#39;tname&#39;, &#39;email&#39;, &#39;words&#39;)
+        ],
+        required_if=[
+            (&#39;state&#39;, &#39;present&#39;, (&#39;tname&#39;, &#39;set_default&#39;), True),
+            (&#39;state&#39;, &#39;absent&#39;, (&#39;instance_name&#39;,)),
+        ],
+    )
+    
+    if module.check_mode:
+        module.exit_json(**result)
+
+
+    if module.params[&#39;state&#39;] == &#39;absent&#39;:
+        try:
+            delete(module.params[&#39;instance_name&#39;])
+            result[&#39;message&#39;] = &#39;OK&#39;
+        except Exception as e:
+            result[&#39;message&#39;] = str(e)
+            module.fail_json(msg=&#39;Failed to delete identity&#39;, **result)
+    elif module.params[&#39;state&#39;] == &#39;list&#39;:
+        try:
+            result[&#39;message&#39;] = list_all()
+        except Exception as e:
+            result[&#39;message&#39;] = str(e)
+            module.fail_json(msg=&#39;Failed to list identities&#39;, **result)
+    else: # present
+        if module.params[&#39;set_default&#39;]:
+            try:
+                set_default(module.params[&#39;instance_name&#39;])
+                result[&#39;message&#39;] = &#39;OK&#39;
+            except Exception as e:
+                result[&#39;message&#39;] = str(e)
+                module.fail_json(msg=&#39;Failed to set default identity&#39;, **result)
+        else:
+            try:
+                result[&#39;message&#39;] = get(instance_name= module.params[&#39;instance_name&#39;],
+                    tname=module.params[&#39;tname&#39;],
+                    email=module.params[&#39;email&#39;],
+                    words=module.params[&#39;words&#39;],
+                    explorer=module.params[&#39;explorer&#39;])
+            except Exception as e:
+                result[&#39;message&#39;] = str(e)
+                module.fail_json(msg=&#39;Failed to get identity&#39;, **result)
+
+    result[&#39;changed&#39;] = True
+
+    module.exit_json(**result)
+
+def main():
+    run_module()
+
+
+if __name__ == &#39;__main__&#39;:
+    main()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="plugins.modules.identity.delete"><code class="name flex">
+<span>def <span class="ident">delete</span></span>(<span>instance_name)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def delete(instance_name):
+    j.core.identity.delete(instance_name)</code></pre>
+</details>
+</dd>
+<dt id="plugins.modules.identity.get"><code class="name flex">
+<span>def <span class="ident">get</span></span>(<span>instance_name, tname, email, words, explorer)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get(instance_name, tname, email, words, explorer):
+    explorer_url = EXPLORER_URLS[explorer]
+    return j.core.identity.get(instance_name, tname, email, words, explorer_url).to_dict()</code></pre>
+</details>
+</dd>
+<dt id="plugins.modules.identity.list_all"><code class="name flex">
+<span>def <span class="ident">list_all</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def list_all():
+    return list(j.core.identity.list_all())</code></pre>
+</details>
+</dd>
+<dt id="plugins.modules.identity.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main():
+    run_module()</code></pre>
+</details>
+</dd>
+<dt id="plugins.modules.identity.run_module"><code class="name flex">
+<span>def <span class="ident">run_module</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run_module():
+    module_args = dict(
+        state=dict(type=&#39;str&#39;, required=True, choices=[&#39;present&#39;, &#39;absent&#39;, &#39;list&#39;]),
+        instance_name=dict(type=&#39;str&#39;, required=False),
+        set_default=dict(type=&#39;bool&#39;, required=False, default=False),
+        tname=dict(type=&#39;str&#39;, required=False),
+        email=dict(type=&#39;str&#39;, required=False),
+        words=dict(type=&#39;str&#39;, required=False),
+        explorer=dict(type=&#39;str&#39;, required=False, choices=[&#39;mainnet&#39;, &#39;testnet&#39;, &#39;devnet&#39;], default=&#34;testnet&#34;),
+    )
+
+    result = dict(
+        changed=False,
+        message=&#39;&#39;
+    )
+    module = AnsibleModule(
+        argument_spec=module_args,
+        required_together=[
+            (&#39;tname&#39;, &#39;email&#39;, &#39;words&#39;)
+        ],
+        required_if=[
+            (&#39;state&#39;, &#39;present&#39;, (&#39;tname&#39;, &#39;set_default&#39;), True),
+            (&#39;state&#39;, &#39;absent&#39;, (&#39;instance_name&#39;,)),
+        ],
+    )
+    
+    if module.check_mode:
+        module.exit_json(**result)
+
+
+    if module.params[&#39;state&#39;] == &#39;absent&#39;:
+        try:
+            delete(module.params[&#39;instance_name&#39;])
+            result[&#39;message&#39;] = &#39;OK&#39;
+        except Exception as e:
+            result[&#39;message&#39;] = str(e)
+            module.fail_json(msg=&#39;Failed to delete identity&#39;, **result)
+    elif module.params[&#39;state&#39;] == &#39;list&#39;:
+        try:
+            result[&#39;message&#39;] = list_all()
+        except Exception as e:
+            result[&#39;message&#39;] = str(e)
+            module.fail_json(msg=&#39;Failed to list identities&#39;, **result)
+    else: # present
+        if module.params[&#39;set_default&#39;]:
+            try:
+                set_default(module.params[&#39;instance_name&#39;])
+                result[&#39;message&#39;] = &#39;OK&#39;
+            except Exception as e:
+                result[&#39;message&#39;] = str(e)
+                module.fail_json(msg=&#39;Failed to set default identity&#39;, **result)
+        else:
+            try:
+                result[&#39;message&#39;] = get(instance_name= module.params[&#39;instance_name&#39;],
+                    tname=module.params[&#39;tname&#39;],
+                    email=module.params[&#39;email&#39;],
+                    words=module.params[&#39;words&#39;],
+                    explorer=module.params[&#39;explorer&#39;])
+            except Exception as e:
+                result[&#39;message&#39;] = str(e)
+                module.fail_json(msg=&#39;Failed to get identity&#39;, **result)
+
+    result[&#39;changed&#39;] = True
+
+    module.exit_json(**result)</code></pre>
+</details>
+</dd>
+<dt id="plugins.modules.identity.set_default"><code class="name flex">
+<span>def <span class="ident">set_default</span></span>(<span>instance_name)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_default(instance_name):
+    j.core.identity.set_default(instance_name)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="plugins.modules" href="index.html">plugins.modules</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="plugins.modules.identity.delete" href="#plugins.modules.identity.delete">delete</a></code></li>
+<li><code><a title="plugins.modules.identity.get" href="#plugins.modules.identity.get">get</a></code></li>
+<li><code><a title="plugins.modules.identity.list_all" href="#plugins.modules.identity.list_all">list_all</a></code></li>
+<li><code><a title="plugins.modules.identity.main" href="#plugins.modules.identity.main">main</a></code></li>
+<li><code><a title="plugins.modules.identity.run_module" href="#plugins.modules.identity.run_module">run_module</a></code></li>
+<li><code><a title="plugins.modules.identity.set_default" href="#plugins.modules.identity.set_default">set_default</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>
