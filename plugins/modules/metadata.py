@@ -99,12 +99,13 @@ def run_module():
     )
 
     identity_name = module.params.get('identity_name', j.core.identity.me.instance_name)
+    identity = j.core.identity.get(identity_name)
+    pk = identity.nacl.signing_key.verify_key.to_curve25519_public_key()
+    sk = identity.nacl.signing_key.to_curve25519_private_key()
+    box = Box(sk, pk)
     if module.params['state'] == 'encrypt':
         try:
             metadata = j.data.serializers.json.dumps(module.params['metadata'])
-            pk = j.core.identity.get(identity_name).nacl.signing_key.verify_key.to_curve25519_public_key()
-            sk = j.core.identity.get(identity_name).nacl.signing_key.to_curve25519_private_key()
-            box = Box(sk, pk)
             encrypted_metadata = base64.b85encode(box.encrypt(metadata.encode())).decode()
             result['message'] = encrypted_metadata
         except Exception as e:
@@ -112,10 +113,6 @@ def run_module():
             module.fail_json(msg='Failed to encrypt metadata', **result)
     else:
         try:
-            identity = j.core.identity.get(identity_name)
-            pk = identity.nacl.signing_key.verify_key.to_curve25519_public_key()
-            sk = identity.nacl.signing_key.to_curve25519_private_key()
-            box = Box(sk, pk)
             decrypted_metadata = box.decrypt(base64.b85decode(module.params['encrypted_metadata'].encode())).decode()
             result['message'] = decrypted_metadata
         except Exception as e:
