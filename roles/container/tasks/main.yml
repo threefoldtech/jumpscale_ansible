@@ -39,7 +39,7 @@
   threefold.jsgrid.metadata:
     state: encrypt
     metadata: "{{ metadata }}"
-    identity_name: asamir_test
+    identity_name: "{{identity_name}}"
   register: encrypted_metadata
 
 - name: create container

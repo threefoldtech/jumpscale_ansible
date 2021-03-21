@@ -6,6 +6,7 @@
     - cpu: 1
     - memory: 1024 # MBs
     - disk_size: 10 # GBs
+    - identity_name: ashroof
     - metadata:
       test: "test"
   roles:
